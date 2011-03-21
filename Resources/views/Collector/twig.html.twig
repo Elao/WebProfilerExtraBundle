@@ -1,0 +1,76 @@
+{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+
+{% block menu %}
+<span class="label">
+    <span class="icon">
+        <img width=30 src="{{ asset('bundles/webprofilerextra/images/twig.png') }}" />
+    </span>
+    <strong>Twig</strong>
+    <span class="count">
+        <span>{{ collector.extensions|length }}</span>
+    </span>
+</span>
+{% endblock %}
+
+{% block panel %}
+    <h2>Twig Extensions</h2>
+    <table>
+        <tr>
+            <th>Extension</th>
+            <th>Class</th>
+        </tr>
+        {% for extension in collector.extensions %}
+            <tr>
+                <th>{{ extension.name }}</th>
+                <td><code>{{ extension.class }}</code></td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br />
+    <h2>Twig Tests available</h2>
+    <table>
+        <tr>
+            <th>Test</th>
+            <th>Call</th>
+            <th>Extension</th>
+        </tr>
+        {% for test in collector.tests %}
+            <tr>
+                <th>{{ test.name }}</th>
+                <td><code>{{ test.call }}</code></td>
+                <td>{{ test.extension }}</td>
+            </tr>
+        {% endfor %}
+    </table>   
+    <h2>Twig Filters available</h2>
+    <table>
+        <tr>
+            <th>Filter</th>
+            <th>Call</th>
+            <th>Extension</th>
+        </tr>
+        {% for filter in collector.filters %}
+            <tr>
+                <th>{{ filter.name }}</th>
+                <td><code>{{ filter.call }}</code></td>
+                <td>{{ filter.extension }}</td>
+            </tr>
+        {% endfor %}
+    </table>    
+    <h2>Twig Functions available</h2>
+    <table>
+        <tr>
+            <th>Function</th>
+            <th>Call</th>
+            <th>Extension</th>
+        </tr>
+        {% for function in collector.functions %}
+            <tr>
+                <th>{{ function.name }}</th>
+                <td><code>{{ function.call }}</code></td>
+                <td>{{ function.extension }}</td>
+            </tr>
+        {% endfor %}
+    </table>            
+    
+{% endblock %}

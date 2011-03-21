@@ -1,0 +1,60 @@
+{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+
+{% block menu %}
+<span class="label">
+    <span class="icon">
+        <img width=30 src="{{ asset('bundles/webprofilerextra/images/container.png') }}" />
+    </span>
+    <strong>Container</strong>
+    <span class="count">
+        <span>{{ collector.servicecount }}</span>
+    </span>
+</span>
+{% endblock %}
+
+{% macro display_array(var, padding) %}
+    {% if var.length %}
+        {% for key, value in var %}
+        <ul style="padding-left: {{ padding }}px;">
+            <li>
+                <code>{{ key }}</code>: 
+                {{ _self.display_array(value, 20) }}
+            </li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        <code>{{ var }}</code>
+    {% endif %}
+{% endmacro %}
+
+{% block panel %}
+    <h2>Container Parameters</h2>
+    <table>
+        {% for service, parameters in collector.parameters %}
+        <tr>
+            <th>{{ service }}</th>
+            <td>
+                <table>
+                {% for key, value in parameters %}
+                    <tr>
+                        <th width="420"><code>{{ key }}</code></th>
+                        <td>
+                            {{ value|dump }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </td>                                
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Container Services:</h2>
+    <table>
+    {% for i, service in collector.services %}
+        <tr class="{{ i is odd ? 'odd' : 'even' }}">
+            <th><code>{{ service.service_id }}</code></th>
+            <td>{{ service.class }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endblock %}
