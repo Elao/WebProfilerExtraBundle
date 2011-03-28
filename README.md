@@ -4,7 +4,7 @@ Installation
   1. Add this bundle to your src/ dir:
 
           $ mkdir -p src/Elao
-          $ git submodule add git://github.com/elao/WebProfilerExtraBundle.git src/Elao/WebProfilerExtraBundle
+          $ git submodule add git://github.com/Elao/WebProfilerExtraBundle.git src/Elao/WebProfilerExtraBundle
 
   2. Add the Elao namespace to your autoloader:
 
