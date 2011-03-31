@@ -1,4 +1,4 @@
-{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+{% extends 'WebProfiler:Profiler:layout.html.twig' %}
 
 {% block menu %}
 <span class="label">
@@ -14,6 +14,7 @@
 
 {% block panel %}
     <h2>Assetic</h2>
+    {% if collector.collections|length %}
     <table>
         <tr>
             <th>Collection</th>
@@ -44,6 +45,12 @@
                             <a target="_blank" href="//{{ collection.target }}">{{ collection.target }}</a>
                         </td>
                     </tr>
-        {% endfor %}
+		{% endfor %}
     </table>
+    {% else %}
+    <p>
+    	<em>No assetic collection</em>
+	</p>
+    {% endif %}
 {% endblock %}
+        
