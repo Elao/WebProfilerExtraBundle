@@ -14,6 +14,7 @@
 
 {% block panel %}
     <h2>Assetic</h2>
+    {% if collector.collections|length %}
     <table>
         <tr>
             <th>Collection</th>
@@ -46,4 +47,9 @@
                     </tr>
         {% endfor %}
     </table>
+    {% else %}
+    <p>
+        <em>No assetic collection</em>
+    </p>
+    {% endif %}
 {% endblock %}
