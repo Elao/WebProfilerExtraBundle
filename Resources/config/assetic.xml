@@ -10,7 +10,7 @@
 
     <services>
         <service id="web_profiler_extra.data_collector.assetic" class="%web_profiler_extra.data_collector.assetic.class%" public="false">
-            <tag name="data_collector" template="WebProfilerExtra:Collector:assetic" id="assetic" />
+            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:assetic" id="assetic" />
             <argument type="service" id="assetic.asset_manager" />
         </service>
     </services>
