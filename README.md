@@ -26,16 +26,16 @@ Installation
 			}
           }
 
-  4. Configure the `web_profiler_extra` service in your config:
+  4. Configure the `web_profiler_extra` service in your dev config:
 
-          # application/config/config.yml
+          # application/config/config_dev.yml
           web_profiler_extra:
               routing:    true
               container:  true
               assetic:    true
               twig:       true
 
-          # application/config/config.xml
+          # application/config/config_dev.xml
           <web_profiler_extra
               routing="true"
               container="true"
