@@ -50,10 +50,28 @@
     </table>
     <h2>Container Services:</h2>
     <table>
-    {% for i, service in collector.services %}
-        <tr class="{{ i is odd ? 'odd' : 'even' }}">
-            <th><code>{{ service.service_id }}</code></th>
-            <td>{{ service.class }}</td>
+    	<tr>
+    		<th>Name</th>
+    		<th>Scope</th>
+    		<th>Class Name</th>
+    	</tr>
+    {% for service_id, service in collector.services %}
+        <tr class="{{ loop.index is odd ? 'odd' : 'even' }}">
+            <th><code>{{ service_id }}</code></th>
+            <td>
+            	{% if service.scope is defined %}
+            		{{ service.scope }}
+            	{% else %}
+            		N/A
+            	{% endif %}
+            </td>
+            <td>
+            	{% if service.class is defined %}
+            		{{ service.class }}
+            	{% elseif service.alias is defined %}	
+            		alias to {{ service.alias }}
+            	{% endif %}
+            </td>
         </tr>
     {% endfor %}
     </table>
