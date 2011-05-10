@@ -5,9 +5,6 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
- * 
- * 
  */
 
 namespace Elao\WebProfilerExtraBundle\DataCollector;
@@ -33,13 +30,13 @@ class ContainerDataCollector extends DataCollector
 {
     protected $kernel;
     protected $container;
-	protected $containerBuilder;
-	
+    protected $containerBuilder;
+    
     
     public function __construct(Kernel $kernel)
     {
-        $this->kernel    		= $kernel;
-        $this->container 		= $kernel->getContainer();
+        $this->kernel            = $kernel;
+        $this->container         = $kernel->getContainer();
         $this->containerBuilder = $this->getContainerBuilder();
     }
 
@@ -49,41 +46,44 @@ class ContainerDataCollector extends DataCollector
     }
     
     /**
-     * {@inheritdoc}
+     * Collect information about services and parameters from the cached dumped xml container
      */
     public function collect(Request $request, Response $response, \Exception $exception = null)
     {
-        $serviceIds = $this->containerBuilder->getServiceIds();
         $parameters = array();
         $services   = array();
         
-        foreach ($this->containerBuilder->getParameterBag()->all() as $key => $value)
+        if ($this->containerBuilder !== false)
         {
-            $service = substr($key, 0, strpos($key, '.'));
-            if (!isset($parameters[$service]))
+            foreach ($this->containerBuilder->getParameterBag()->all() as $key => $value)
             {
-                $parameters[$service] = array();
+                $service = substr($key, 0, strpos($key, '.'));
+                if (!isset($parameters[$service]))
+                {
+                    $parameters[$service] = array();
+                }
+                $parameters[$service][$key] = $value;
             }
-            $parameters[$service][$key] = $value;
+            
+            $serviceIds = $this->containerBuilder->getServiceIds();
+            foreach ($serviceIds as $serviceId)
+            {
+                $definition = $this->resolveServiceDefinition($serviceId);
+                
+                if ($definition instanceof Definition && $definition->isPublic()) {
+                    $services[$serviceId] = array('class' => $definition->getClass(), 'scope' => $definition->getScope());
+                    $scope = $definition->getScope();
+                    $class = $definition->getClass();
+                } elseif ($definition instanceof Alias) {
+                    $services[$serviceId] = array('alias' => $definition);
+                } else {
+                    continue;    // We don't want private services 
+                }
+            }
+            
+            ksort($services);
+            ksort($parameters);
         }
-        
-        foreach ($serviceIds as $serviceId)
-        {
-			$definition = $this->resolveServiceDefinition($serviceId);
-			
-			if ($definition instanceof Definition && $definition->isPublic()) {
-				$services[$serviceId] = array('class' => $definition->getClass(), 'scope' => $definition->getScope());
-	            $scope = $definition->getScope();
-	            $class = $definition->getClass();
-			} elseif ($definition instanceof Alias) {
-				$services[$serviceId] = array('alias' => $definition);
-	        } else {
-	        	continue;	// We don't want private services 
-			}
-        }
-        
-        ksort($services);
-        ksort($parameters);
         $this->data['parameters'] = $parameters;
         $this->data['services']   = $services;
     }
@@ -102,22 +102,18 @@ class ContainerDataCollector extends DataCollector
     {
         return $this->data['services'];
     }
-    
 
 
     /**
-	* Loads the ContainerBuilder from the cache.
-	* @author Ryan Weaver <ryan@thatsquality.com>
-	* @return ContainerBuilder
-	*/
+    * @author Ryan Weaver <ryan@thatsquality.com>
+    * Loads the ContainerBuilder from the cache.
+    * 
+    * @return ContainerBuilder
+    */
     private function getContainerBuilder()
     {
-        if (!$this->getKernel()->isDebug()) {
-            throw new \LogicException(sprintf('Debug information about the container is only available in debug mode.'));
-        }
-
-        if (!file_exists($cachedFile = $this->container->getParameter('debug.container.dump'))) {
-            throw new \LogicException(sprintf('Debug information about the container could not be found. Please clear the cache and try again.'));
+        if (!$this->getKernel()->isDebug() || !file_exists($cachedFile = $this->container->getParameter('debug.container.dump'))) {
+            return false;
         }
 
         $container = new ContainerBuilder();
@@ -128,14 +124,15 @@ class ContainerDataCollector extends DataCollector
         return $container;
     }
 
+    
     /**
     * @author Ryan Weaver <ryan@thatsquality.com>
-	* Given an array of service IDs, this returns the array of corresponding
-	* Definition and Alias objects that those ids represent.
-	*
-	* @param string $serviceId The service id to resolve
-	* @return \Symfony\Component\DependencyInjection\Definition|\Symfony\Component\DependencyInjection\Alias
-	*/
+    * Given an array of service IDs, this returns the array of corresponding
+    * Definition and Alias objects that those ids represent.
+    *
+    * @param string $serviceId The service id to resolve
+    * @return \Symfony\Component\DependencyInjection\Definition|\Symfony\Component\DependencyInjection\Alias
+    */
     private function resolveServiceDefinition($serviceId)
     {
         if ($this->containerBuilder->hasDefinition($serviceId)) {
