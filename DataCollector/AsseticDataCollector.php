@@ -47,7 +47,7 @@ class AsseticDataCollector extends DataCollector
         	
         	foreach ($collection->all() as $asset)
         	{
-        		$assets[] = $asset->getSourceUrl();
+        		$assets[] = $asset->getSourcePath();
         	}
         	
         	foreach ($collection->getFilters() as $filter)
@@ -56,7 +56,7 @@ class AsseticDataCollector extends DataCollector
         	}
         	
         	$collections[$name] = array(
-        		'target'  => $collection->getTargetUrl(),
+        		'target'  => $collection->getTargetPath(),
         		'assets'  => $assets,
         		'filters' => $filters 
         	);
