@@ -11,7 +11,7 @@
     <services>
         <service id="web_profiler_extra.data_collector.routing" class="%web_profiler_extra.data_collector.routing.class%" public="false">
             <tag name="data_collector" template="WebProfilerExtraBundle:Collector:routing" id="routing" />
-            <argument type="service" id="router.real" />
+            <argument type="service" id="router" />
         </service>
     </services>
 </container>
