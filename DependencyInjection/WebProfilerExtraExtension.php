@@ -32,8 +32,8 @@ class WebProfilerExtraExtension extends Extension
     protected $resources = array(
     	'routing'     => array('file' => 'routing.xml'),
     	'container'   => array('file' => 'container.xml'),
-        'assetic'     => array('file' => 'assetic.xml', 'required_services' => array('assetic.asset_manager')), 
-        'twig'		  => array('file' => 'twig.xml', 	'required_services' => array('twig'))
+        'assetic'     => array('file' => 'assetic.xml'), 
+        'twig'	      => array('file' => 'twig.xml')
     );
     
     
