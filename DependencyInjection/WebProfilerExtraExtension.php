@@ -50,7 +50,7 @@ class WebProfilerExtraExtension extends Extension
         
         foreach ($this->resources as $key => $resource) 
         {
-            if (isset($config[$key]))
+            if ($config[$key] === true)
             {
                 $loader->load($resource['file']);    
             }
