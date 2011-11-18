@@ -52,7 +52,9 @@ class WebProfilerExtraExtension extends Extension
         {
             if (isset($config[$key]))
             {
-                $loader->load($resource['file']);    
+                if ($config[$key] === true) {
+                    $loader->load($resource['file']);
+                }
             }
         }
     }
