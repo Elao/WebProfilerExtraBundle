@@ -25,18 +25,24 @@ use Symfony\Component\Config\FileLocator;
  * container:	Information about the container configuration & sevices
  * kernel:		Information about the kernel
  * twig:		Information about Twig
+ *
  * @author Vincent Bouzeran <vincent.bouzeran@elao.com>
  */
 class WebProfilerExtraExtension extends Extension
 {
     protected $resources = array(
-    	'routing'     => array('file' => 'routing.xml'),
-    	'container'   => array('file' => 'container.xml'),
-        'assetic'     => array('file' => 'assetic.xml'), 
-        'twig'	      => array('file' => 'twig.xml')
+        'routing'   => array('file' => 'routing.xml'),
+        'container' => array('file' => 'container.xml'),
+        'assetic'   => array('file' => 'assetic.xml'),
+        'twig'      => array('file' => 'twig.xml')
     );
-    
-    
+
+    /**
+     * Wrapper for the doConfigLoad() Method
+     *
+     * @param array            $configs   Configurations
+     * @param ContainerBuilder $container Containerbuilder Object
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         foreach ($configs as $config) {
@@ -44,19 +50,25 @@ class WebProfilerExtraExtension extends Extension
         }
     }
 
+    /**
+     * Loads the Configuration Files which are set to true
+     *
+     * @param array            $config    Configurations
+     * @param ContainerBuilder $container Containerbuilder Object
+     */
     protected function doConfigLoad(array $config, ContainerBuilder $container)
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        
-        foreach ($this->resources as $key => $resource) 
-        {
-            if (isset($config[$key]))
-            {
-                $loader->load($resource['file']);    
+
+        foreach ($this->resources as $key => $resource) {
+            if (isset($config[$key])) {
+                if ($config[$key] === true) {
+                    $loader->load($resource['file']);
+                }
             }
         }
     }
-    
+
     /**
      * Returns the base path for the XSD files.
      *
