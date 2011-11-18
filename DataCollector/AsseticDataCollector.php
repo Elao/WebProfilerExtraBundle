@@ -61,9 +61,9 @@ class AsseticDataCollector extends DataCollector
             }
 
             $collections[$name] = array(
-                'target'=>$collection->getTargetPath(),
-                'assets'=>$assets,
-                'filters'=>$filters
+                'target' => $collection->getTargetPath(),
+                'assets' => $assets,
+                'filters' => $filters
             );
         }
 

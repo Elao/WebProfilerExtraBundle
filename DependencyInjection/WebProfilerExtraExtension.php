@@ -100,5 +100,4 @@ class WebProfilerExtraExtension extends Extension
     {
         return 'web_profiler_extra';
     }
-
 }
