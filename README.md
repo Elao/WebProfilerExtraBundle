@@ -6,7 +6,7 @@ Installation
 ## deps
 
             [WebProfilerExtraBundle]
-                git=http://github.com/gpupo/WebProfilerExtraBundle.git
+                git=http://github.com/Elao/WebProfilerExtraBundle.git
                 target=bundles/Elao/WebProfilerExtraBundle
 
 
