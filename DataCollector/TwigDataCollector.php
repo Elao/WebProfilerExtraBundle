@@ -46,35 +46,51 @@ class TwigDataCollector extends DataCollector
         $tests = array();
         $extensions = array();
         $functions = array();
-        $operators = array();
 
-        foreach ($this->twig->getExtensions() as $extensionName => $extension) {
+        foreach ($this->twig->getExtensions() as $extensionName => $extension)
+        {
             $extensions[] = array(
                 'name' => $extensionName,
                 'class' => get_class($extension)
             );
-            foreach ($extension->getFilters() as $filterName => $filter) {
-                $filters[] = array(
-                    'name' => $filterName,
-                    'call' => $filter->compile(),
-                    'extension' => $extensionName
-                );
-            }
 
-            foreach ($extension->getTests() as $testName => $test) {
-                $tests[] = array(
-                    'name' => $testName,
-                    'call' => $test->compile(),
-                    'extension' => $extensionName
-                );
+            $tFilters =$extension->getFilters();
+            if (!empty($tFilters))
+            {
+                foreach ($tFilters as $filterName => $filter)
+                {
+                    $filters[] = array(
+                        'name' => $filterName,
+                        'call' => $filter->compile(),
+                        'extension' => $extensionName
+                    );
+                }
             }
-
-            foreach ($extension->getFunctions() as $functionName => $function) {
-                $functions[] = array(
-                    'name' => $functionName,
-                    'call' => $function->compile(),
-                    'extension' => $extensionName
-                );
+            
+            $tTests = $extension->getTests();
+            if (!empty($tTests))
+            {
+                foreach ($tTests as $testName => $test)
+                {
+                    $tests[] = array(
+                        'name' => $testName,
+                        'call' => $test->compile(),
+                        'extension' => $extensionName
+                    );
+                }
+            }
+            
+            $tFunctions = $extension->getFunctions();
+            if (!empty($tFunctions))
+            {
+                foreach ($tFunctions as $functionName => $function)
+                {
+                    $functions[] = array(
+                        'name' => $functionName,
+                        'call' => $function->compile(),
+                        'extension' => $extensionName
+                    );
+                }
             }
         }
         $this->data['extensions'] = $extensions;
