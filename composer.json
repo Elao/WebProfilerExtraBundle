@@ -1,0 +1,27 @@
+{
+    "name": "elao/web-profiler-extra-bundle",
+    "type":        "symfony-bundle",
+    "description": "Add routing, container, assetic & twig information inside the profiler",
+    "keywords":    ["elao", "profiler", "extra", "bundle"],
+    "homepage":    "http://github.com/Elao/WebProfilerExtraBundle",
+    "license":     "MIT",
+    "authors": [
+        {
+            "name": "Elao Team",
+            "homepage": "http://www.elao.com"
+        },
+        {
+            "name": "Contributors",
+            "homepage": "http://github.com/Elao/WebProfilerExtraBundle/contributors"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": ">=2.0,<2.2-dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Elao\\WebProfilerExtraBundle": "."
+        }
+    },
+    "target-dir": "Elao/WebProfilerExtraBundle"
+}
