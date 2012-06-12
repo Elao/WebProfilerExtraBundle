@@ -13,6 +13,27 @@
 {% endblock %}
 
 {% block panel %}
+    <h2>Twig Templates</h2>
+    <table>
+        <tr>
+            <th>Template</th>
+            <th>Parameters</th>
+        </tr>
+        {% for template in collector.templates %}
+        <tr>
+            <th>{{ template.name }}</th>
+            <td>
+                {% for parameter, type in template.parameters %}
+                <code>
+                    {{ parameter }}: {{ type }}
+                </code>
+                {% if not loop.last %}<br />{% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br />
     <h2>Twig Extensions</h2>
     <table>
         <tr>
