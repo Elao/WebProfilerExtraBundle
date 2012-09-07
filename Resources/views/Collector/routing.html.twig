@@ -13,24 +13,6 @@
 {% endblock %}
 
 {% block panel %}
-    <h2>Sources</h2>
-    {% if not collector.ressourcecount %}
-        <em>No source.</em>
-    {% else %}
-        <table>
-            {% for i, ressource in collector.ressources %}
-                <tr class="{{ i is odd ? 'odd' : 'even' }}">
-                    <th>
-                        {{ ressource.type }}
-                    </th>
-                    <td>
-                        <code>{{ ressource.path }}</code>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
-
 
     <h2>Routes</h2>
 
@@ -58,4 +40,24 @@
             {% endfor %}
         </table>
     {% endif %}
+    
+    <h2>Sources</h2>
+    
+    {% if not collector.ressourcecount %}
+        <em>No source.</em>
+    {% else %}
+        <table>
+            {% for i, ressource in collector.ressources %}
+                <tr class="{{ i is odd ? 'odd' : 'even' }}">
+                    <th>
+                        {{ ressource.type }}
+                    </th>
+                    <td>
+                        <code>{{ ressource.path }}</code>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+    
 {% endblock %}
