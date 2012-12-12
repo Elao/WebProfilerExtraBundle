@@ -11,7 +11,6 @@
 
 namespace Elao\WebProfilerExtraBundle\DataCollector;
 
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -58,7 +57,6 @@ class RoutingDataCollector extends DataCollector
                 'path' => $ressource->__toString()
             );
         }
-
 
         foreach ($_routes as $routeName => $route) {
 
@@ -136,6 +134,7 @@ class RoutingDataCollector extends DataCollector
     public function getTime()
     {
         $time = 0;
+
         return $time;
     }
 

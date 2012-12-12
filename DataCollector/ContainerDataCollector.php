@@ -9,7 +9,6 @@
 
 namespace Elao\WebProfilerExtraBundle\DataCollector;
 
-use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
