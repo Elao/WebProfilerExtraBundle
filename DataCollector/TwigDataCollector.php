@@ -34,7 +34,7 @@ class TwigDataCollector extends DataCollector
     }
 
     /**
-     * Collect assets information from Assetic Asset Manager
+     * Collect information from Twig
      *
      * @param Request    $request   The Request Object
      * @param Response   $response  The Response Object
@@ -77,6 +77,7 @@ class TwigDataCollector extends DataCollector
                 );
             }
         }
+
         $this->data['extensions'] = $extensions;
         $this->data['tests'] = $tests;
         $this->data['filters'] = $filters;

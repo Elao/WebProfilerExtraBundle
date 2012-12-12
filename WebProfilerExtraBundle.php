@@ -10,7 +10,7 @@ class WebProfilerExtraBundle extends Bundle
     {
         return __NAMESPACE__;
     }
-    
+
     public function getPath()
     {
         return strtr(__DIR__, '\\', '/');

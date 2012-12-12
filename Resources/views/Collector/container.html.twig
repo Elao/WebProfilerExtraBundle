@@ -32,7 +32,7 @@
 	                    </tr>
 	                {% endfor %}
 	                </table>
-	            </td>                                
+	            </td>
 	        </tr>
 	        {% endfor %}
 	    </table>
@@ -56,12 +56,12 @@
 	            <td>
 	            	{% if service.class is defined %}
 	            		{{ service.class }}
-	            	{% elseif service.alias is defined %}	
+	            	{% elseif service.alias is defined %}
 	            		alias to {{ service.alias }}
 	            	{% endif %}
 	            </td>
-	        </tr>  
+	        </tr>
 	    {% endfor %}
 	    </table>
-	{% endif %}	    
+	{% endif %}
 {% endblock %}
