@@ -1,39 +1,19 @@
 {% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
 
 {% block menu %}
-<span class="label">
-    <span class="icon">
-        <img width=30 src="{{ asset('bundles/webprofilerextra/images/routing.png') }}" />
+    <span class="label">
+        <span class="icon">
+            <img width=30 src="{{ asset('bundles/webprofilerextra/images/routing.png') }}" />
+        </span>
+        <strong>Routing</strong>
+        <span class="count">
+            <span>{{ collector.routecount }}</span>
+        </span>
     </span>
-    <strong>Routing</strong>
-    <span class="count">
-        <span>{{ collector.routecount }}</span>
-    </span>
-</span>
 {% endblock %}
 
 {% block panel %}
-    <h2>Sources</h2>
-    {% if not collector.ressourcecount %}
-        <em>No source.</em>
-    {% else %}
-        <table>
-            {% for i, ressource in collector.ressources %}
-                <tr class="{{ i is odd ? 'odd' : 'even' }}">
-                    <th>
-                        {{ ressource.type }}
-                    </th>
-                    <td>
-                        <code>{{ ressource.path }}</code>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
-
-
     <h2>Routes</h2>
-
     {% if not collector.routecount %}
         <em>No route.</em>
     {% else %}
@@ -55,4 +35,23 @@
             {% endfor %}
         </table>
     {% endif %}
+
+    <h2>Sources</h2>
+    {% if not collector.ressourcecount %}
+        <em>No source.</em>
+    {% else %}
+        <table>
+            {% for i, ressource in collector.ressources %}
+                <tr class="{{ i is odd ? 'odd' : 'even' }}">
+                    <th>
+                        {{ ressource.type }}
+                    </th>
+                    <td>
+                        <code>{{ ressource.path }}</code>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
 {% endblock %}

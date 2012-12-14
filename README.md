@@ -1,51 +1,53 @@
 Installation
 ============
 
+## Deps
 
+Add `elao/web-profiler-extra-bundle` to your `composer.json`
 
-## deps
+```
+"require": {
+    "elao/web-profiler-extra-bundle": "dev-master"
+},
+```
 
-            [WebProfilerExtraBundle]
-                git=http://github.com/Elao/WebProfilerExtraBundle.git
-                target=bundles/Elao/WebProfilerExtraBundle
+Then run:
 
+```
+composer update elao/web-profiler-extra-bundle
+```
 
-(add to deps file and run `./bin/vendors install`)
+Or directly run:
 
-
-
+```
+composer require elao/web-profiler-extra-bundle
+```
 
 ## AppKernel
 
-            //...
+```
+//...
 
+if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+    //.. (just add)
+    $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle();
+}
 
-            if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-                //.. (just add)
-                $bundles[] = new Elao\WebProfilerExtraBundle\WebProfilerExtraBundle();
-            }
-
-            //...
-
-
-## Autoloading
-
-            //...
-
-            'Elao'             => __DIR__.'/../vendor/bundles',
-
-            //...
-
+//...
+```
 
 ## app/config/config_dev.yml
 
-        web_profiler_extra:
-            routing:    true
-            container:  true
-            assetic:    true
-            twig:       true
-
+```
+web_profiler_extra:
+    routing:    true
+    container:  true
+    assetic:    true
+    twig:       true
+```
 
 ## Install assets
 
-        $ `app/console assets:install web`
+```
+$ app/console assets:install web
+```

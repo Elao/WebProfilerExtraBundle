@@ -1,55 +1,55 @@
 {% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
 
 {% block menu %}
-<span class="label">
-    <span class="icon">
-        <img width=25 src="{{ asset('bundles/webprofilerextra/images/assetic.png') }}" />
+    <span class="label">
+        <span class="icon">
+            <img width=25 src="{{ asset('bundles/webprofilerextra/images/assetic.png') }}" />
+        </span>
+        <strong>Assetic</strong>
+        <span class="count">
+            <span>{{ collector.collectionCount }}</span>
+        </span>
     </span>
-    <strong>Assetic</strong>
-    <span class="count">
-        <span>{{ collector.collectionCount }}</span>
-    </span>
-</span>
 {% endblock %}
 
 {% block panel %}
     <h2>Assetic</h2>
     {% if collector.collections|length %}
-    <table>
-        <tr>
-            <th>Collection</th>
-            <th>Sources</th>
-            <th>Filters</th>
-            <th>Target Url</th>
-        </tr>
-        {% for i, collection in collector.collections %}
-                    <tr class="{{ i is odd ? 'odd' : 'even' }}">
-                        <th align="center">
-                            {{ i }}
-                        </th>
-                        <td>
-                            <ul>
+        <table>
+            <tr>
+                <th>Collection</th>
+                <th>Sources</th>
+                <th>Filters</th>
+                <th>Target Url</th>
+            </tr>
+            {% for i, collection in collector.collections %}
+                <tr class="{{ i is odd ? 'odd' : 'even' }}">
+                    <th align="center">
+                        {{ i }}
+                    </th>
+                    <td>
+                        <ul>
                             {% for asset in collection.assets %}
-								<li><code>{{ asset }}</code></li>
+                                <li><code>{{ asset }}</code></li>
                             {% endfor %}
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
                             {% for filter in collection.filters %}
-								<li><code>{{ filter }}</code></li>
+                                <li><code>{{ filter }}</code></li>
                             {% endfor %}
-                            </ul>
-                        </td>
-                        <td>
-                            <a target="_blank" href="//{{ collection.target }}">{{ collection.target }}</a>
-                        </td>
-                    </tr>
-        {% endfor %}
-    </table>
+                        </ul>
+                    </td>
+                    <td>
+                        <a target="_blank" href="//{{ collection.target }}">{{ collection.target }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
     {% else %}
-    <p>
-        <em>No assetic collection</em>
-    </p>
+        <p>
+            <em>No assetic collection</em>
+        </p>
     {% endif %}
 {% endblock %}

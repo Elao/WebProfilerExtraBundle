@@ -20,56 +20,38 @@ use Symfony\Component\Config\FileLocator;
  * assetic:		Information about assetics assets
  * routing:		Information about loaded routes
  * container:	Information about the container configuration & sevices
- * kernel:		Information about the kernel
  * twig:		Information about Twig
  *
  * @author Vincent Bouzeran <vincent.bouzeran@elao.com>
+ * @author Grégoire Pineau <lyrixx@lyrixx.info>
  */
 class WebProfilerExtraExtension extends Extension
 {
-    protected $resources = array(
-        'routing'   => array('file' => 'routing.xml'),
-        'container' => array('file' => 'container.xml'),
-        'assetic'   => array('file' => 'assetic.xml'),
-        'twig'      => array('file' => 'twig.xml')
+    private $resources = array(
+        'routing'   => 'routing.xml',
+        'container' => 'container.xml',
+        'assetic'   => 'assetic.xml',
+        'twig'      => 'twig.xml',
     );
 
     /**
-     * Wrapper for the doConfigLoad() Method
-     *
-     * @param array            $configs   Configurations
-     * @param ContainerBuilder $container Containerbuilder Object
+     * {@inheritDoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        foreach ($configs as $config) {
-            $this->doConfigLoad($config, $container);
-        }
-    }
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
 
-    /**
-     * Loads the Configuration Files which are set to true
-     *
-     * @param array            $config    Configurations
-     * @param ContainerBuilder $container Containerbuilder Object
-     */
-    protected function doConfigLoad(array $config, ContainerBuilder $container)
-    {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-
-        foreach ($this->resources as $key => $resource) {
-            if (isset($config[$key])) {
-                if ($config[$key] === true) {
-                    $loader->load($resource['file']);
-                }
+        foreach ($config as $resource => $isEnabled) {
+            if ($isEnabled) {
+                $loader->load($this->resources[$resource]);
             }
         }
     }
 
     /**
-     * Returns the base path for the XSD files.
-     *
-     * @return string The XSD base path
+     * {@inheritDoc}
      */
     public function getXsdValidationBasePath()
     {
@@ -77,9 +59,7 @@ class WebProfilerExtraExtension extends Extension
     }
 
     /**
-     * Returns the namespace to be used for this extension (XML namespace).
-     *
-     * @return string The XML namespace
+     * {@inheritDoc}
      */
     public function getNamespace()
     {
@@ -87,11 +67,7 @@ class WebProfilerExtraExtension extends Extension
     }
 
     /**
-     * Returns the recommended alias to use in XML.
-     *
-     * This alias is also the mandatory prefix to use when using YAML.
-     *
-     * @return string The alias
+     * {@inheritDoc}
      */
     public function getAlias()
     {

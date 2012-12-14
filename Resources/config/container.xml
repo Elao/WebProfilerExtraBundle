@@ -10,8 +10,8 @@
 
     <services>
         <service id="web_profiler_extra.data_collector.container" class="%web_profiler_extra.data_collector.container.class%" public="false">
-            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:container" id="container" />
             <argument type="service" id="kernel" />
+            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:container" id="container" />
         </service>
     </services>
 </container>
