@@ -46,7 +46,6 @@ class TwigDataCollector extends DataCollector
         $tests = array();
         $extensions = array();
         $functions = array();
-        $operators = array();
 
         foreach ($this->twig->getExtensions() as $extensionName => $extension) {
             $extensions[] = array(
@@ -95,6 +94,7 @@ class TwigDataCollector extends DataCollector
                 );
             }
         }
+
         $this->data['extensions'] = $extensions;
         $this->data['tests'] = $tests;
         $this->data['filters'] = $filters;
@@ -106,7 +106,7 @@ class TwigDataCollector extends DataCollector
      *
      * @return integer Amount of Extensions
      */
-    public function getCountextensions()
+    public function getCountExtensions()
     {
         return count($this->getExtensions());
     }
@@ -126,7 +126,7 @@ class TwigDataCollector extends DataCollector
      *
      * @return integer Amount of Filters
      */
-    public function getCountfilters()
+    public function getCountFilters()
     {
         return count($this->getFilters());
     }
@@ -146,7 +146,7 @@ class TwigDataCollector extends DataCollector
      *
      * @return integer Amount of Tests
      */
-    public function getCounttests()
+    public function getCountTests()
     {
         return count($this->getTests());
     }
@@ -166,7 +166,7 @@ class TwigDataCollector extends DataCollector
      *
      * @return integer Amount of Functions
      */
-    public function getCountfunctions()
+    public function getCountFunctions()
     {
         return count($this->getFunctions());
     }
