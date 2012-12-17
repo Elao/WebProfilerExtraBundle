@@ -46,7 +46,6 @@ class TwigDataCollector extends DataCollector
         $tests = array();
         $extensions = array();
         $functions = array();
-        $operators = array();
 
         foreach ($this->twig->getExtensions() as $extensionName => $extension) {
             $extensions[] = array(
@@ -54,26 +53,44 @@ class TwigDataCollector extends DataCollector
                 'class' => get_class($extension)
             );
             foreach ($extension->getFilters() as $filterName => $filter) {
+                if ($filter instanceof \Twig_FilterInterface) {
+                    $call = $filter->compile();
+                } else {
+                    $call = $filter->getName();
+                }
+
                 $filters[] = array(
                     'name' => $filterName,
-                    'call' => $filter->compile(),
-                    'extension' => $extensionName
+                    'extension' => $extensionName,
+                    'call' => $call,
                 );
             }
 
             foreach ($extension->getTests() as $testName => $test) {
+                if ($test instanceof \Twig_TestInterface) {
+                    $call = $test->compile();
+                } else {
+                    $call = $test->getName();
+                }
+
                 $tests[] = array(
                     'name' => $testName,
-                    'call' => $test->compile(),
-                    'extension' => $extensionName
+                    'extension' => $extensionName,
+                    'call' => $call,
                 );
             }
 
             foreach ($extension->getFunctions() as $functionName => $function) {
+                if ($function instanceof \Twig_FunctionInterface) {
+                    $call = $function->compile();
+                } else {
+                    $call = $function->getName();
+                }
+
                 $functions[] = array(
                     'name' => $functionName,
-                    'call' => $function->compile(),
-                    'extension' => $extensionName
+                    'extension' => $extensionName,
+                    'call' => $call,
                 );
             }
         }
@@ -89,7 +106,7 @@ class TwigDataCollector extends DataCollector
      *
      * @return integer Amount of Extensions
      */
-    public function getCountextensions()
+    public function getCountExtensions()
     {
         return count($this->getExtensions());
     }
@@ -109,7 +126,7 @@ class TwigDataCollector extends DataCollector
      *
      * @return integer Amount of Filters
      */
-    public function getCountfilters()
+    public function getCountFilters()
     {
         return count($this->getFilters());
     }
@@ -129,7 +146,7 @@ class TwigDataCollector extends DataCollector
      *
      * @return integer Amount of Tests
      */
-    public function getCounttests()
+    public function getCountTests()
     {
         return count($this->getTests());
     }
@@ -149,7 +166,7 @@ class TwigDataCollector extends DataCollector
      *
      * @return integer Amount of Functions
      */
-    public function getCountfunctions()
+    public function getCountFunctions()
     {
         return count($this->getFunctions());
     }
