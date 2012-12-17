@@ -54,26 +54,44 @@ class TwigDataCollector extends DataCollector
                 'class' => get_class($extension)
             );
             foreach ($extension->getFilters() as $filterName => $filter) {
+                if ($filter instanceof \Twig_FilterInterface) {
+                    $call = $filter->compile();
+                } else {
+                    $call = $filter->getName();
+                }
+
                 $filters[] = array(
                     'name' => $filterName,
-                    'call' => $filter->compile(),
-                    'extension' => $extensionName
+                    'extension' => $extensionName,
+                    'call' => $call,
                 );
             }
 
             foreach ($extension->getTests() as $testName => $test) {
+                if ($test instanceof \Twig_TestInterface) {
+                    $call = $test->compile();
+                } else {
+                    $call = $test->getName();
+                }
+
                 $tests[] = array(
                     'name' => $testName,
-                    'call' => $test->compile(),
-                    'extension' => $extensionName
+                    'extension' => $extensionName,
+                    'call' => $call,
                 );
             }
 
             foreach ($extension->getFunctions() as $functionName => $function) {
+                if ($function instanceof \Twig_FunctionInterface) {
+                    $call = $function->compile();
+                } else {
+                    $call = $function->getName();
+                }
+
                 $functions[] = array(
                     'name' => $functionName,
-                    'call' => $function->compile(),
-                    'extension' => $extensionName
+                    'extension' => $extensionName,
+                    'call' => $call,
                 );
             }
         }
