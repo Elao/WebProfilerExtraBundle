@@ -59,15 +59,16 @@ class RoutingDataCollector extends DataCollector
         }
 
         foreach ($_routes as $routeName => $route) {
-
             $options = $route->getOptions();
             $defaults = $route->getDefaults();
             $requirements = $route->getRequirements();
+
             $controller = isset($defaults['_controller']) ? $defaults['_controller'] : 'unknown';
             $routes[$routeName] = array(
                 'name' => $routeName,
                 'pattern' => $route->getPattern(),
-                'controller' => $controller
+                'controller' => $controller,
+                'method' => isset($requirements['_method']) ? $requirements['_method'] : 'ANY',
             );
         }
         ksort($routes);
