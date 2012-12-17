@@ -1,67 +1,68 @@
 {% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
 
 {% block menu %}
-<span class="label">
-    <span class="icon">
-        <img width=30 src="{{ asset('bundles/webprofilerextra/images/container.png') }}" />
+    <span class="label">
+        <span class="icon">
+            <img width=30 src="{{ asset('bundles/webprofilerextra/images/container.png') }}" />
+        </span>
+        <strong>Container</strong>
+        <span class="count">
+            <span>{{ collector.servicecount }}</span>
+        </span>
     </span>
-    <strong>Container</strong>
-    <span class="count">
-        <span>{{ collector.servicecount }}</span>
-    </span>
-</span>
 {% endblock %}
 
 {% block panel %}
-	{% if collector.services is empty %}
-		<em>No debug container information</em>
-	{% else %}
-	    <h2>Container Parameters</h2>
-	    <table>
-	        {% for service, parameters in collector.parameters %}
-	        <tr>
-	            <th>{{ service }}</th>
-	            <td>
-	                <table>
-	                {% for key, value in parameters %}
-	                    <tr>
-	                        <th width="420"><code>{{ key }}</code></th>
-	                        <td>
-	                            {{ value | yaml_dump }}
-	                        </td>
-	                    </tr>
-	                {% endfor %}
-	                </table>
-	            </td>
-	        </tr>
-	        {% endfor %}
-	    </table>
-	    <h2>Container Services:</h2>
-	    <table>
-	    	<tr>
-	    		<th>Name</th>
-	    		<th>Scope</th>
-	    		<th>Class Name</th>
-	    	</tr>
-	    {% for service_id, service in collector.services %}
-	        <tr class="{{ loop.index is odd ? 'odd' : 'even' }}">
-	            <th><code>{{ service_id }}</code></th>
-	            <td>
-	            	{% if service.scope is defined %}
-	            		{{ service.scope }}
-	            	{% else %}
-	            		N/A
-	            	{% endif %}
-	            </td>
-	            <td>
-	            	{% if service.class is defined %}
-	            		{{ service.class }}
-	            	{% elseif service.alias is defined %}
-	            		alias to {{ service.alias }}
-	            	{% endif %}
-	            </td>
-	        </tr>
-	    {% endfor %}
-	    </table>
-	{% endif %}
+    {% if collector.services is empty %}
+        <em>No debug container information</em>
+    {% else %}
+        <h2>Container Parameters</h2>
+        <table>
+            {% for service, parameters in collector.parameters %}
+                <tr>
+                    <th>{{ service }}</th>
+                    <td>
+                        <table>
+                            {% for key, value in parameters %}
+                                <tr>
+                                    <th width="420"><code>{{ key }}</code></th>
+                                    <td>
+                                        {{ value | yaml_dump }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Container Services:</h2>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Scope</th>
+                <th>Class Name</th>
+            </tr>
+            {% for service_id, service in collector.services %}
+                <tr class="{{ loop.index is odd ? 'odd' : 'even' }}">
+                    <th><code>{{ service_id }}</code></th>
+                    <td>
+                        {% if service.scope is defined %}
+                            {{ service.scope }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if service.class is defined %}
+                            {{ service.class }}
+                        {% elseif service.alias is defined %}
+                            alias to {{ service.alias }}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 {% endblock %}
