@@ -13,6 +13,7 @@
 {% endblock %}
 
 {% block panel %}
+
     <h2>Routes</h2>
     {% if not collector.routecount %}
         <em>No route.</em>
@@ -23,6 +24,9 @@
                     <th>
                         @{{ route.name }}
                     </th>
+                    <td>
+                        <code>{{ route.method }}</code>
+                    </td>
                     <td>
                         <code>{{ route.pattern }}</code>
                     </td>
@@ -37,6 +41,7 @@
     {% endif %}
 
     <h2>Sources</h2>
+
     {% if not collector.ressourcecount %}
         <em>No source.</em>
     {% else %}
