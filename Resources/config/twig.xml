@@ -11,7 +11,7 @@
 
     <services>
         <service id="web_profiler_extra.data_collector.twig" class="%web_profiler_extra.data_collector.twig.class%" public="false">
-            <argument type="service" id="twig" />
+            <argument type="service" id="service_container" />
             <tag name="data_collector" template="WebProfilerExtraBundle:Collector:twig" id="twig" />
         </service>
 
