@@ -102,6 +102,47 @@ class TwigDataCollector extends DataCollector
     }
 
     /**
+     * Collects data on the twig templates rendered
+     *
+     * @param mixed $name       The template name
+     * @param array $parameters The array of parameters passed to the template
+     */
+    public function collectTemplateData($name, $parameters)
+    {
+        $collectedParameters = array();
+        foreach ($parameters as $name => $value) {
+            $collectedParameters[$name] = in_array(gettype($value), array('object', 'resource'))
+                ? get_class($value)
+                : gettype($value);
+        }
+
+        $this->data['templates'][] = array(
+            'name' => $name,
+            'parameters' => $collectedParameters
+        );
+    }
+
+    /**
+     * Returns the amount of Templates
+     *
+     * @return int Amount of templates
+     */
+    public function getCountTemplates()
+    {
+        return count($this->getTemplates());
+    }
+
+    /**
+     * Returns the Twig templates information
+     *
+     * @return array Template information
+     */
+    public function getTemplates()
+    {
+        return $this->data['templates'];
+    }
+
+    /**
      * Returns the amount of Extensions
      *
      * @return integer Amount of Extensions
