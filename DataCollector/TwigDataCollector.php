@@ -13,6 +13,7 @@ namespace Elao\WebProfilerExtraBundle\DataCollector;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * AsseticDataCollector.
@@ -21,16 +22,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class TwigDataCollector extends DataCollector
 {
-    private $twig;
+    private $container;
 
     /**
      * The Constructor for the Twig Datacollector
      *
-     * @param \Twig_Environment $twig Twig Enviroment
+     * @param Container the service container
      */
-    public function __construct(\Twig_Environment $twig)
+    public function __construct(Container $container)
     {
-        $this->twig = $twig;
+        $this->container = $container;
     }
 
     /**
@@ -47,7 +48,7 @@ class TwigDataCollector extends DataCollector
         $extensions = array();
         $functions = array();
 
-        foreach ($this->twig->getExtensions() as $extensionName => $extension) {
+        foreach ($this->getTwig()->getExtensions() as $extensionName => $extension) {
             $extensions[] = array(
                 'name' => $extensionName,
                 'class' => get_class($extension)
@@ -99,6 +100,16 @@ class TwigDataCollector extends DataCollector
         $this->data['tests'] = $tests;
         $this->data['filters'] = $filters;
         $this->data['functions'] = $functions;
+    }
+
+    /**
+     * Get Twig Environment
+     *
+     * @return \Twig_Environment
+     */
+    protected function getTwig()
+    {
+        return $this->container->get('twig');
     }
 
     /**

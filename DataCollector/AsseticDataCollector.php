@@ -9,7 +9,7 @@
 
 namespace Elao\WebProfilerExtraBundle\DataCollector;
 
-use Assetic\Factory\LazyAssetManager;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,16 +22,16 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
  */
 class AsseticDataCollector extends DataCollector
 {
-    protected $assetManager;
+    protected $container;
 
     /**
      * Constructor for the Assetic Datacollector
      *
-     * @param LazyAssetManager $assetManager Assetic Assetmanager
+     * @param Container $contaier The service container
      */
-    public function __construct(LazyAssetManager $assetManager)
+    public function __construct(Container $container)
     {
-        $this->assetManager = $assetManager;
+        $this->container = $container;
     }
 
     /**
@@ -45,7 +45,7 @@ class AsseticDataCollector extends DataCollector
     {
         $collections = array();
 
-        foreach ($this->assetManager->getNames() as $name) {
+        foreach ($this->getAssetManager()->getNames() as $name) {
             $collection = $this->assetManager->get($name);
             $assets = array();
             $filters = array();
@@ -67,6 +67,18 @@ class AsseticDataCollector extends DataCollector
 
         $this->data['collections'] = $collections;
     }
+
+    /**
+     * Get the Assetic Assetic manager
+     *
+     * @return LazyAssetManager
+     */
+    protected function getAssetManager()
+    {
+        return $this->container->get('assetic.asset_manager');
+    }
+
+
     /**
      * Calculates the Collection Count
      *
