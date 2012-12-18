@@ -46,7 +46,7 @@ class AsseticDataCollector extends DataCollector
         $collections = array();
 
         foreach ($this->getAssetManager()->getNames() as $name) {
-            $collection = $this->assetManager->get($name);
+            $collection = $this->getAssetManager()->get($name);
             $assets = array();
             $filters = array();
 
