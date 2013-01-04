@@ -150,7 +150,7 @@ class TwigDataCollector extends DataCollector
      */
     public function getTemplates()
     {
-        return $this->data['templates'];
+        return isset($this->data['templates']) ? $this->data['templates'] : array();
     }
 
     /**
