@@ -7,8 +7,22 @@
     {% endset %}
     {% set text %}
         <div class="sf-toolbar-info-piece">
-            <b>Templates</b>
-            <span>{{ collector.templates|length }}</span>
+            <b>Template{{ 1 == collector.templates|length ? ':' : 's'}}</b>
+            <span>
+                {% if 1 == collector.templates|length %}
+                    {% set template = collector.templates|first %}
+                    {% if template.path %}
+                        <a href="{{ template.path|file_link(1) }}">
+                            {{ template.name }}
+                        </a>
+                    {% else %}
+                        {{ template.name }}
+                    {% endif %}
+                {% else %}
+                    {{ collector.templates|length }}
+
+                {% endif %}
+            </span>
         </div>
         <div class="sf-toolbar-info-piece">
             <b>Extensions</b>
