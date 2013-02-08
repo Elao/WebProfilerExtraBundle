@@ -21,6 +21,7 @@
             <argument type="service" id="templating.locator" />
             <argument type="service" id="templating.globals" />
             <argument type="service" id="web_profiler_extra.data_collector.twig" />
+            <argument type="service" id="debug.stopwatch" />
         </service>
     </services>
 </container>

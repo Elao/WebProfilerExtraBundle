@@ -2,24 +2,24 @@
 
 namespace Elao\WebProfilerExtraBundle;
 
-use Symfony\Bundle\TwigBundle\TwigEngine;
-
 use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
-use Symfony\Component\Templating\TemplateNameParserInterface;
+use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
 use Symfony\Component\Config\FileLocatorInterface;
+use Symfony\Component\Stopwatch\Stopwatch;
+use Symfony\Component\Templating\TemplateNameParserInterface;
 
 use Elao\WebProfilerExtraBundle\DataCollector\TwigDataCollector;
 
-class TwigProfilerEngine extends TwigEngine
+class TwigProfilerEngine extends TimedTwigEngine
 {
     protected $collector;
 
     /**
      * {@inheritdoc}
      */
-    public function __construct(\Twig_Environment $environment, TemplateNameParserInterface $parser, FileLocatorInterface $locator, GlobalVariables $globals = null, TwigDataCollector $collector)
+    public function __construct(\Twig_Environment $environment, TemplateNameParserInterface $parser, FileLocatorInterface $locator, GlobalVariables $globals = null, TwigDataCollector $collector, Stopwatch $stopwatch)
     {
-        parent::__construct($environment, $parser, $locator, $globals);
+        parent::__construct($environment, $parser, $locator, $stopwatch, $globals);
 
         $this->collector = $collector;
     }
