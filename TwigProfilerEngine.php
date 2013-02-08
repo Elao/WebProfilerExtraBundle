@@ -29,7 +29,11 @@ class TwigProfilerEngine extends TimedTwigEngine
      */
     public function render($name, array $parameters = array())
     {
-        $this->collector->collectTemplateData($name, $parameters);
+        $loader = $this->environment->getLoader();
+        if ($loader instanceof \Twig_Loader_Filesystem) {
+            $templatePath = $loader->getCacheKey($name);
+        }
+        $this->collector->collectTemplateData($name, $parameters, $templatePath);
 
         return parent::render($name, $parameters);
     }

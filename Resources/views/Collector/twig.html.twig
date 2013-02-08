@@ -51,7 +51,15 @@
         </tr>
         {% for template in collector.templates %}
         <tr>
-            <th>{{ template.name }}</th>
+            <th>
+                {% if template.path %}
+                    <a href="{{ template.path|file_link(1) }}">
+                        {{ template.name }}
+                    </a>
+                {% else %}
+                    {{ template.name }}
+                {% endif %}
+            </th>
             <td>
                 {% for parameter, type in template.parameters %}
                 <code>

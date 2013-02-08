@@ -117,8 +117,9 @@ class TwigDataCollector extends DataCollector
      *
      * @param mixed $templateName The template name
      * @param array $parameters   The array of parameters passed to the template
+     * @param array $templatePath The template path
      */
-    public function collectTemplateData($templateName, $parameters)
+    public function collectTemplateData($templateName, $parameters, $templatePath = null)
     {
         $collectedParameters = array();
         foreach ($parameters as $name => $value) {
@@ -129,6 +130,7 @@ class TwigDataCollector extends DataCollector
 
         $this->data['templates'][] = array(
             'name'       => $templateName,
+            'path'       => $templatePath,
             'parameters' => $collectedParameters
         );
     }
