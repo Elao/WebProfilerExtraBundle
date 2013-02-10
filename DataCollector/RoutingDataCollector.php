@@ -28,11 +28,13 @@ class RoutingDataCollector extends DataCollector
     /**
      * Constructor for the Router Datacollector
      *
-     * @param Router $router The Router Object
+     * @param Router  $router       The Router Object
+     * @param boolean $displayInWdt True if the shortcut should be displayed
      */
-    public function __construct(RouterInterface $router)
+    public function __construct(RouterInterface $router, $displayInWdt)
     {
         $this->router = $router;
+        $this->data['display_in_wdt'] = $displayInWdt;
     }
 
     /**
@@ -137,6 +139,11 @@ class RoutingDataCollector extends DataCollector
         $time = 0;
 
         return $time;
+    }
+
+    public function getDisplayInWdt()
+    {
+        return $this->data['display_in_wdt'];
     }
 
     /**

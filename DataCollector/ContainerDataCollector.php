@@ -33,13 +33,15 @@ class ContainerDataCollector extends DataCollector
     /**
      * Constructor for the Container Datacollector
      *
-     * @param Kernel $kernel The Kernel
+     * @param Kernel  $kernel       The Kernel
+     * @param boolean $displayInWdt True if the shortcut should be displayed
      */
-    public function __construct(Kernel $kernel)
+    public function __construct(Kernel $kernel, $displayInWdt)
     {
         $this->kernel = $kernel;
         $this->container = $kernel->getContainer();
         $this->containerBuilder = $this->getContainerBuilder();
+        $this->data['display_in_wdt'] = $displayInWdt;
     }
 
     /**
@@ -125,6 +127,19 @@ class ContainerDataCollector extends DataCollector
         return $this->data['services'];
     }
 
+    public function getDisplayInWdt()
+    {
+        return $this->data['display_in_wdt'];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'container';
+    }
+
     /**
      * Loads the ContainerBuilder from the cache.
      *
@@ -169,13 +184,5 @@ class ContainerDataCollector extends DataCollector
 
         // the service has been injected in some special way, just return the service
         return $this->containerBuilder->get($serviceId);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'container';
     }
 }

@@ -27,11 +27,13 @@ class TwigDataCollector extends DataCollector
     /**
      * The Constructor for the Twig Datacollector
      *
-     * @param Container the service container
+     * @param Container $container    The service container
+     * @param boolean   $displayInWdt True if the shortcut should be displayed
      */
-    public function __construct(Container $container)
+    public function __construct(Container $container, $displayInWdt)
     {
         $this->container = $container;
+        $this->data['display_in_wdt'] = $displayInWdt;
     }
 
     /**
@@ -233,6 +235,11 @@ class TwigDataCollector extends DataCollector
     public function getFunctions()
     {
         return $this->data['functions'];
+    }
+
+    public function getDisplayInWdt()
+    {
+        return $this->data['display_in_wdt'];
     }
 
     /**

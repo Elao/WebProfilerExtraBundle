@@ -10,7 +10,6 @@
 namespace Elao\WebProfilerExtraBundle\DependencyInjection;
 
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -43,9 +42,10 @@ class WebProfilerExtraExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        foreach ($config as $resource => $configTmp) {
-            if ($configTmp['enabled']) {
+        foreach ($config as $resource => $item) {
+            if ($item['enabled']) {
                 $loader->load($this->resources[$resource]);
+                $container->setParameter('web_profiler_extra.data_collector.'.$resource.'.display_in_wdt', $item['display_in_wdt']);
             }
         }
     }
