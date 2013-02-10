@@ -29,6 +29,8 @@ class TwigProfilerEngine extends TimedTwigEngine
      */
     public function render($name, array $parameters = array())
     {
+        $templatePath = null;
+
         $loader = $this->environment->getLoader();
         if ($loader instanceof \Twig_Loader_Filesystem) {
             $templatePath = $loader->getCacheKey($name);
