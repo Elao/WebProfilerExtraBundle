@@ -149,7 +149,10 @@ class ContainerDataCollector extends DataCollector
      */
     private function getContainerBuilder()
     {
-        if (!$this->getKernel()->isDebug() || !file_exists($cachedFile = $this->container->getParameter('debug.container.dump'))) {
+        if (!$this->getKernel()->isDebug()
+            || !$this->container->hasParameter('debug.container.dump')
+            || !file_exists($cachedFile = $this->container->getParameter('debug.container.dump'))
+        ) {
             return false;
         }
 
