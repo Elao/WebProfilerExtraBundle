@@ -49,28 +49,4 @@ class WebProfilerExtraExtension extends Extension
             }
         }
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getXsdValidationBasePath()
-    {
-        return __DIR__.'/../Resources/config/schema';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getNamespace()
-    {
-        return 'http://www.symfony-project.org/schema/dic/web_profiler_extra';
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getAlias()
-    {
-        return 'web_profiler_extra';
-    }
 }
