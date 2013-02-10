@@ -12,7 +12,7 @@
                 {% if 1 == collector.templates|length %}
                     {% set template = collector.templates|first %}
                     {% if template.path %}
-                        <a href="{{ template.path|file_link(1) }}">
+                        <a class="sf-toolbar-info-method" href="{{ template.path|file_link(1) }}">
                             {{ template.name }}
                         </a>
                     {% else %}
