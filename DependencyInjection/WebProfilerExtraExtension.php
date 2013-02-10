@@ -43,8 +43,8 @@ class WebProfilerExtraExtension extends Extension
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        foreach ($config as $resource => $isEnabled) {
-            if ($isEnabled) {
+        foreach ($config as $resource => $configTmp) {
+            if ($configTmp['enabled']) {
                 $loader->load($this->resources[$resource]);
             }
         }

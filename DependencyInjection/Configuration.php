@@ -27,10 +27,10 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->booleanNode('routing')->defaultValue(true)->end()
-                ->booleanNode('container')->defaultValue(true)->end()
-                ->booleanNode('assetic')->defaultValue(true)->end()
-                ->booleanNode('twig')->defaultValue(true)->end()
+                ->arrayNode('routing')->canBeDisabled()->end()
+                ->arrayNode('container')->canBeDisabled()->end()
+                ->arrayNode('assetic')->canBeDisabled()->end()
+                ->arrayNode('twig')->canBeDisabled()->end()
             ->end()
         ;
 
