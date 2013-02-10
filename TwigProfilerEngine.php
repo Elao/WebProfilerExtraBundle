@@ -2,26 +2,21 @@
 
 namespace Elao\WebProfilerExtraBundle;
 
-use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
-use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
-use Symfony\Component\Config\FileLocatorInterface;
-use Symfony\Component\Stopwatch\Stopwatch;
-use Symfony\Component\Templating\TemplateNameParserInterface;
+use Symfony\Bundle\TwigBundle\TwigEngine;
 
 use Elao\WebProfilerExtraBundle\DataCollector\TwigDataCollector;
 
-class TwigProfilerEngine extends TimedTwigEngine
+class TwigProfilerEngine extends TwigEngine
 {
+    protected $environment;
+    protected $twigEngine;
     protected $collector;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct(\Twig_Environment $environment, TemplateNameParserInterface $parser, FileLocatorInterface $locator, GlobalVariables $globals = null, TwigDataCollector $collector, Stopwatch $stopwatch)
+    public function __construct(\Twig_Environment $environment, TwigEngine $twigEngine, TwigDataCollector $collector)
     {
-        parent::__construct($environment, $parser, $locator, $stopwatch, $globals);
-
-        $this->collector = $collector;
+        $this->environment = $environment;
+        $this->twigEngine  = $twigEngine;
+        $this->collector   = $collector;
     }
 
     /**
@@ -37,6 +32,30 @@ class TwigProfilerEngine extends TimedTwigEngine
         }
         $this->collector->collectTemplateData($name, $parameters, $templatePath);
 
-        return parent::render($name, $parameters);
+        return $this->twigEngine->render($name, $parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function stream($name, array $parameters = array())
+    {
+        $this->twigEngine->stream($name, $parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function exists($name)
+    {
+        return $this->twigEngine->exists($name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supports($name)
+    {
+        return $this->twigEngine->supports($name);
     }
 }
