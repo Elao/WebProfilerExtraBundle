@@ -4,24 +4,19 @@ namespace Elao\WebProfilerExtraBundle;
 
 use Symfony\Bundle\TwigBundle\TwigEngine;
 
-use Symfony\Bundle\FrameworkBundle\Templating\GlobalVariables;
-use Symfony\Component\Templating\TemplateNameParserInterface;
-use Symfony\Component\Config\FileLocatorInterface;
-
 use Elao\WebProfilerExtraBundle\DataCollector\TwigDataCollector;
 
 class TwigProfilerEngine extends TwigEngine
 {
+    protected $environment;
+    protected $twigEngine;
     protected $collector;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct(\Twig_Environment $environment, TemplateNameParserInterface $parser, FileLocatorInterface $locator, GlobalVariables $globals = null, TwigDataCollector $collector)
+    public function __construct(\Twig_Environment $environment, TwigEngine $twigEngine, TwigDataCollector $collector)
     {
-        parent::__construct($environment, $parser, $locator, $globals);
-
-        $this->collector = $collector;
+        $this->environment = $environment;
+        $this->twigEngine  = $twigEngine;
+        $this->collector   = $collector;
     }
 
     /**
@@ -29,8 +24,38 @@ class TwigProfilerEngine extends TwigEngine
      */
     public function render($name, array $parameters = array())
     {
-        $this->collector->collectTemplateData($name, $parameters);
+        $templatePath = null;
 
-        return parent::render($name, $parameters);
+        $loader = $this->environment->getLoader();
+        if ($loader instanceof \Twig_Loader_Filesystem) {
+            $templatePath = $loader->getCacheKey($name);
+        }
+        $this->collector->collectTemplateData($name, $parameters, $templatePath);
+
+        return $this->twigEngine->render($name, $parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function stream($name, array $parameters = array())
+    {
+        $this->twigEngine->stream($name, $parameters);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function exists($name)
+    {
+        return $this->twigEngine->exists($name);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supports($name)
+    {
+        return $this->twigEngine->supports($name);
     }
 }

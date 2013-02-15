@@ -12,15 +12,8 @@
     <services>
         <service id="web_profiler_extra.data_collector.twig" class="%web_profiler_extra.data_collector.twig.class%" public="false">
             <argument type="service" id="service_container" />
+            <argument>%web_profiler_extra.data_collector.twig.display_in_wdt%</argument>
             <tag name="data_collector" template="WebProfilerExtraBundle:Collector:twig" id="twig" />
-        </service>
-
-        <service id="templating.engine.twig" class="%web_profiler_extra.templating.engine.twig.class%">
-            <argument type="service" id="twig" />
-            <argument type="service" id="templating.name_parser" />
-            <argument type="service" id="templating.locator" />
-            <argument type="service" id="templating.globals" />
-            <argument type="service" id="web_profiler_extra.data_collector.twig" />
         </service>
     </services>
 </container>

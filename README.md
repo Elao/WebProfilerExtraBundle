@@ -70,3 +70,6 @@ Install assets by running to have beatuiful icons in your debug bar
 
     $ app/console assets:install web/ --symlink
 
+## Screenshot
+
+![Screenshot](screen.png)
