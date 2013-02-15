@@ -3,16 +3,16 @@
 namespace Elao\WebProfilerExtraBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
+use Elao\WebProfilerExtraBundle\DependencyInjection\Compiler\TwigEngineCompilerPass;
 
 class WebProfilerExtraBundle extends Bundle
 {
-    public function getNamespace()
+    public function build(ContainerBuilder $container)
     {
-        return __NAMESPACE__;
-    }
+        parent::build($container);
 
-    public function getPath()
-    {
-        return strtr(__DIR__, '\\', '/');
+        $container->addCompilerPass(new TwigEngineCompilerPass());
     }
 }

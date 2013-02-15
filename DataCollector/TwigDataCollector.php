@@ -27,11 +27,13 @@ class TwigDataCollector extends DataCollector
     /**
      * The Constructor for the Twig Datacollector
      *
-     * @param Container the service container
+     * @param Container $container    The service container
+     * @param boolean   $displayInWdt True if the shortcut should be displayed
      */
-    public function __construct(Container $container)
+    public function __construct(Container $container, $displayInWdt)
     {
         $this->container = $container;
+        $this->data['display_in_wdt'] = $displayInWdt;
     }
 
     /**
@@ -115,10 +117,11 @@ class TwigDataCollector extends DataCollector
     /**
      * Collects data on the twig templates rendered
      *
-     * @param mixed $name       The template name
-     * @param array $parameters The array of parameters passed to the template
+     * @param mixed $templateName The template name
+     * @param array $parameters   The array of parameters passed to the template
+     * @param array $templatePath The template path
      */
-    public function collectTemplateData($name, $parameters)
+    public function collectTemplateData($templateName, $parameters, $templatePath = null)
     {
         $collectedParameters = array();
         foreach ($parameters as $name => $value) {
@@ -128,7 +131,8 @@ class TwigDataCollector extends DataCollector
         }
 
         $this->data['templates'][] = array(
-            'name' => $name,
+            'name'       => $templateName,
+            'path'       => $templatePath,
             'parameters' => $collectedParameters
         );
     }
@@ -231,6 +235,11 @@ class TwigDataCollector extends DataCollector
     public function getFunctions()
     {
         return $this->data['functions'];
+    }
+
+    public function getDisplayInWdt()
+    {
+        return $this->data['display_in_wdt'];
     }
 
     /**

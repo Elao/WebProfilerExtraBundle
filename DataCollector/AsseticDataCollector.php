@@ -13,7 +13,6 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 /**
  * AsseticDataCollector.
@@ -27,11 +26,13 @@ class AsseticDataCollector extends DataCollector
     /**
      * Constructor for the Assetic Datacollector
      *
-     * @param Container $contaier The service container
+     * @param Container $contaier     The service container
+     * @param boolean   $displayInWdt True if the shortcut should be displayed
      */
-    public function __construct(Container $container)
+    public function __construct(Container $container, $displayInWdt)
     {
         $this->container = $container;
+        $this->data['display_in_wdt'] = $displayInWdt;
     }
 
     /**
@@ -78,7 +79,6 @@ class AsseticDataCollector extends DataCollector
         return $this->container->get('assetic.asset_manager');
     }
 
-
     /**
      * Calculates the Collection Count
      *
@@ -97,6 +97,11 @@ class AsseticDataCollector extends DataCollector
     public function getCollections()
     {
         return $this->data['collections'];
+    }
+
+    public function getDisplayInWdt()
+    {
+        return $this->data['display_in_wdt'];
     }
 
     /**

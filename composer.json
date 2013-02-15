@@ -16,8 +16,9 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": ">=2.2,<2.4-dev",
-        "symfony/twig-bundle": ">=2.2,<2.4-dev"
+        "symfony/framework-bundle": "~2.2",
+        "symfony/twig-bundle": ">=2.0,<2.3-dev",
+        "twig/twig": "~1.12"
     },
     "autoload": {
         "psr-0": {
