@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": ">=2.0,<2.3-dev",
+        "symfony/framework-bundle": "~2.2",
         "symfony/twig-bundle": ">=2.0,<2.3-dev",
         "twig/twig": "~1.12"
     },
