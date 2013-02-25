@@ -60,10 +60,18 @@ Most of the time, we need this bundle to be only activated in the `dev` environe
 #### Activate the different collectors in  `app/config/config_dev.yml`
 
     web_profiler_extra:
-        routing:    true
-        container:  true
-        assetic:    true
-        twig:       true
+        routing:
+            enabled:        true
+            display_in_wdt: true
+        container:
+            enabled:        true
+            display_in_wdt: true
+        assetic:
+            enabled:        true
+            display_in_wdt: true
+        twig:
+            enabled:        true
+            display_in_wdt: true
 
 
 ## Install assets
