@@ -18,7 +18,7 @@ It adds in your WebProfiler extra sections :
 
 ## Installation
 
-#### If you are working with Symfony >= 2.1
+#### If you are working with Symfony >= 2.2
 
 Add this in your `composer.json`
 
@@ -28,6 +28,8 @@ Add this in your `composer.json`
     },
 
 And run `php composer.phar update elao/web-profiler-extra-bundle`
+
+If you are working with Symfony <= 2.1, prefer the 2.1 branch of this bundle `"elao/web-profiler-extra-bundle" : "dev-2.1"`
 
 #### If you are (still) working with Symfony 2.0.x
 
