@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Elao\WebProfilerExtraBundle\DependencyInjection\Compiler\TwigEngineCompilerPass;
 
 /**
  * ExtraProfilerExtension is an extension to add debug information to the web profiler:
@@ -50,8 +49,6 @@ class WebProfilerExtraExtension extends Extension
             }
         }
 
-        if ($config['twig']['enabled']) {
-            $container->addCompilerPass(new TwigEngineCompilerPass());
-        }
+        $container->setParameter('web_profiler_extra.data_collector.twig.enabled', $config['twig']['enabled']);
     }
 }

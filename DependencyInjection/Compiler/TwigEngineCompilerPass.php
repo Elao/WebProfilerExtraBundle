@@ -11,6 +11,12 @@ class TwigEngineCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
+        if (!$container->hasParameter('web_profiler_extra.data_collector.twig.enabled')
+            || !$container->getParameter('web_profiler_extra.data_collector.twig.enabled')
+        ) {
+            return;
+        }
+
         $container->setDefinition(
             'templating.engine.twig.decorated',
             $container->getDefinition('templating.engine.twig')
