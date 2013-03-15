@@ -48,5 +48,7 @@ class WebProfilerExtraExtension extends Extension
                 $container->setParameter('web_profiler_extra.data_collector.'.$resource.'.display_in_wdt', $item['display_in_wdt']);
             }
         }
+
+        $container->setParameter('web_profiler_extra.data_collector.twig.enabled', $config['twig']['enabled']);
     }
 }
