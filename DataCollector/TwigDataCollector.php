@@ -125,9 +125,10 @@ class TwigDataCollector extends DataCollector
     {
         $collectedParameters = array();
         foreach ($parameters as $name => $value) {
-            $collectedParameters[$name] = in_array(gettype($value), array('object', 'resource'))
-                ? get_class($value)
-                : gettype($value);
+            $collectedParameters[$name] = array(
+                'type' => in_array(gettype($value), array('object', 'resource')) ? get_class($value) : gettype($value),
+                'value' => in_array(gettype($value), array('object', 'resource', 'array')) ? null : $value,
+            );
         }
 
         $this->data['templates'][] = array(
