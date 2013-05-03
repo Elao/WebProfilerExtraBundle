@@ -22,7 +22,7 @@ It adds in your WebProfiler extra sections :
 
 Add this in your `composer.json`
 
-    "require": {
+    "require-dev": {
         [...]
         "elao/web-profiler-extra-bundle" : "dev-master"
     },
