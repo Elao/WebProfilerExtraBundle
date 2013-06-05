@@ -1,7 +1,7 @@
 Elao WebProfilerExtraBundle
 ============
 
-[![Total Downloads](https://poser.pugx.org/symfony/symfony/d/total.png)](https://packagist.org/packages/elao/web-profiler-extra-bundle)
+[![Total Downloads](https://poser.pugx.org/elao/web-profiler-extra-bundle/d/total.png)](https://packagist.org/packages/elao/web-profiler-extra-bundle)
 
 
 
