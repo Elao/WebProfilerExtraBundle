@@ -1,7 +1,8 @@
 Elao WebProfilerExtraBundle
 ============
 
-[![knpbundles.com](http://knpbundles.com/Elao/WebProfilerExtraBundle/badge)](http://knpbundles.com/Elao/WebProfilerExtraBundle)
+[![Total Downloads](https://poser.pugx.org/symfony/symfony/d/total.png)](https://packagist.org/packages/elao/web-profiler-extra-bundle)
+
 
 
 ## What is this Symfony2 bundle for ?
