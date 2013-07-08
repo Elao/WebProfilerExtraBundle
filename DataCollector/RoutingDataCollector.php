@@ -61,7 +61,6 @@ class RoutingDataCollector extends DataCollector
         }
 
         foreach ($_routes as $routeName => $route) {
-            $options = $route->getOptions();
             $defaults = $route->getDefaults();
             $requirements = $route->getRequirements();
 

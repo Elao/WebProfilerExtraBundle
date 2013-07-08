@@ -81,8 +81,6 @@ class ContainerDataCollector extends DataCollector
 
                 if ($definition instanceof Definition && $definition->isPublic()) {
                     $services[$serviceId] = array('class' => $definition->getClass(), 'scope' => $definition->getScope());
-                    $scope = $definition->getScope();
-                    $class = $definition->getClass();
                 } elseif ($definition instanceof Alias) {
                     $services[$serviceId] = array('alias' => $definition);
                 } else {
