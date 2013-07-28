@@ -32,21 +32,6 @@ And run `php composer.phar update elao/web-profiler-extra-bundle`
 
 If you are working with Symfony <= 2.1, prefer the 2.1 branch of this bundle `"elao/web-profiler-extra-bundle" : "dev-2.1"`
 
-#### If you are (still) working with Symfony 2.0.x
-
-Add the followings lines to your `deps` file
-
-    [ElaoWebProfilerExtraBundle]
-        git=https://github.com/Elao/WebProfilerExtraBundle.git
-        target=bundles/Elao/WebProfilerExtraBundle
-
-and don't forget to register it in your autoloading `app/autoload.php`
-
-    $loader->registerNamespaces(array(
-        [...]
-        'Elao' => __DIR__.'/../vendor/bundles',
-    ));
-
 
 #### Register the bundle in your AppKernel (`app/AppKernel.php`)
 
