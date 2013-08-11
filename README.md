@@ -35,7 +35,7 @@ If you are working with Symfony <= 2.1, prefer the 2.1 branch of this bundle `"e
 
 #### Register the bundle in your AppKernel (`app/AppKernel.php`)
 
-Most of the time, we need this bundle to be only activated in the `dev` environement
+Most of the time, we need this bundle to be only activated in the `dev` environment
 
     [...]
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -62,7 +62,7 @@ Most of the time, we need this bundle to be only activated in the `dev` environe
 
 ## Install assets
 
-Install assets by running to have beatuiful icons in your debug bar
+Install assets by running to have beautiful icons in your debug bar
 
     $ app/console assets:install web/ --symlink
 

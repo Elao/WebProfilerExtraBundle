@@ -26,7 +26,7 @@ class AsseticDataCollector extends DataCollector
     /**
      * Constructor for the Assetic Datacollector
      *
-     * @param Container $contaier     The service container
+     * @param Container $container     The service container
      * @param boolean   $displayInWdt True if the shortcut should be displayed
      */
     public function __construct(Container $container, $displayInWdt)
