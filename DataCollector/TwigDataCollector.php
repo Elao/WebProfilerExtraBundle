@@ -58,8 +58,9 @@ class TwigDataCollector extends DataCollector
             foreach ($extension->getFilters() as $filterName => $filter) {
                 if ($filter instanceof \Twig_FilterInterface) {
                     $call = $filter->compile();
-			  if(is_array($call) && is_callable($call)) 
-			     $call = 'Method '.$call[1].' of an object '.get_class($call[0]);
+                    if(is_array($call) && is_callable($call)) {
+                        $call = 'Method '.$call[1].' of an object '.get_class($call[0]);
+                    }
                 } else {
                     $call = $filter->getName();
                 }
