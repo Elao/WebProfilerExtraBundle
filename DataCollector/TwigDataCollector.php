@@ -100,7 +100,16 @@ class TwigDataCollector extends DataCollector
                 );
             }
         }
+	  
+	  $globals = array();
+	  foreach($this->getTwig()->getGlobals() as $globalName => $global) {
+	     $globals[] = array(
+		   'name' => $globalName,
+		   'value' => $this->getVarDump($global),
+	     );
+	  }
 
+        $this->data['globals'] = $globals;
         $this->data['extensions'] = $extensions;
         $this->data['tests'] = $tests;
         $this->data['filters'] = $filters;
@@ -169,6 +178,16 @@ class TwigDataCollector extends DataCollector
     public function getCountExtensions()
     {
         return count($this->getExtensions());
+    }
+
+    /**
+     * Returns the Twig Globals Information
+     *
+     * @return array Globals Information
+     */
+    public function getGlobals()
+    {
+        return $this->data['globals'];
     }
 
     /**
@@ -252,5 +271,37 @@ class TwigDataCollector extends DataCollector
     public function getName()
     {
         return 'twig';
+    }
+    
+    /**
+     * Returns var_dump like of a variable but avoiding flood dumping
+     * 
+     * @return string Formated var_dump
+     */
+    protected function getVarDump($var)
+    {
+        $varType = gettype($var);
+        switch ($varType) {
+            case 'boolean':
+            case 'integer':
+            case 'double':
+            case 'NULL':
+            case 'ressource':
+		   return print_r($var, 1);
+		   break;
+            case 'string':
+		   return (250 < strlen($var)) ? substr($var, 0, 250).'...' : $var;
+		   break;
+            case 'object':
+               return 'Object instance of ' . get_class($var);
+               break;
+            case 'array':
+               $formated_array = array();
+               foreach ($var as $key => $value) {
+                   $formated_array[$key] = $this->getVarDump($value);
+               }
+               return print_r($formated_array, 1);
+               break;
+	  }
     }
 }
