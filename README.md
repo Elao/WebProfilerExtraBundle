@@ -25,7 +25,7 @@ Add this in your `composer.json`
 
     "require-dev": {
         [...]
-        "elao/web-profiler-extra-bundle" : "dev-master"
+        "elao/web-profiler-extra-bundle" : "~2.3@dev"
     },
 
 And run `php composer.phar update elao/web-profiler-extra-bundle`
