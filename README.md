@@ -58,6 +58,10 @@ Most of the time, we need this bundle to be only activated in the `dev` environm
         twig:
             enabled:        true
             display_in_wdt: true
+        session:
+            enabled:        true
+            display_in_wdt: true
+            keys_displayed: ['first_sessionKey', 'second_sessionKey']
 
 
 ## Install assets
