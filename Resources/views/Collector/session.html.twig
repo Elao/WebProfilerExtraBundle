@@ -1,0 +1,61 @@
+{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+
+{% block toolbar %}
+    {% if collector.displayInWdt %}
+        {% set icon %}
+            <img height="28" alt="Session" src="data:image/png;base64,
+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"/>
+            <span class="sf-toolbar-info-piece-additional-detail">Session</span>
+        {% endset %}
+        {% set text %}
+            <div class="sf-toolbar-info-piece">
+                <b>Session Id</b>
+                <span>{{ collector.session.id }}</span>
+            </div>
+            <div class="sf-toolbar-info-piece">
+                <table>
+                    {% for key, info in collector.session.values %}
+                        <div class="sf-toolbar-info-piece">
+                            <b>{{ key }}</b>
+                            <span>{{ info }}</span>
+                        </div>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endset %}
+        {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url } %}
+    {% endif %}
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon">
+            <img width=30 src="{{ asset('bundles/webprofilerextra/images/session.png') }}" />
+        </span>
+        <strong>Session Id</strong>
+        <span class="count">
+            <span>{{ collector.sessioncount }}</span>
+        </span>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {% if collector.session.values is empty %}
+        <em>No session values information</em>
+    {% else %}
+
+        <h2>Session variables :</h2>
+        <table>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            {% for key, info in collector.session.all %}
+                <tr class="{{ loop.index is odd ? 'odd' : 'even' }}">
+                    <th><code>{{ key }}</code></th>
+                    <th><code>{{ info }}</code></th>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
