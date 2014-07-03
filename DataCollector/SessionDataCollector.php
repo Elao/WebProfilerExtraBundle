@@ -1,8 +1,6 @@
 <?php
 
-/*
- * Rémi Le Monnier <remi.lemonnier@gmail.com>
- *
+/**
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
@@ -33,8 +31,9 @@ class SessionDataCollector extends DataCollector
     /**
      * Constructor for the Container Datacollector
      *
-     * @param Kernel  $kernel       The Kernel
-     * @param boolean $displayInWdt True if the shortcut should be displayed
+     * @param Kernel  $kernel        The Kernel
+     * @param boolean $displayInWdt  True if the shortcut should be displayed
+     * @param array   $keysDisplayed List of the session keys to display
      */
     public function __construct(Kernel $kernel, $displayInWdt, $keysDisplayed)
     {
@@ -83,7 +82,7 @@ class SessionDataCollector extends DataCollector
         $all = $this->container->get('session')->all();
         $arrDisplayed = array();
         foreach ($all as $key => $value) {
-            if(in_array($key, $this->keysDisplayed)) {
+            if (in_array($key, $this->keysDisplayed)) {
                 $arrDisplayed[$key] = $value;
             }
         }
@@ -113,7 +112,4 @@ class SessionDataCollector extends DataCollector
     {
         return 'session';
     }
-
-    
-
 }
