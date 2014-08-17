@@ -21,11 +21,10 @@
         "twig/twig": "~1.12"
     },
     "autoload": {
-        "psr-0": {
-            "Elao\\WebProfilerExtraBundle": "."
+        "psr-4": {
+            "Elao\\WebProfilerExtraBundle\\": "."
         }
     },
-    "target-dir": "Elao/WebProfilerExtraBundle",
     "extra": {
         "branch-alias": {
             "dev-master": "2.3-dev"
