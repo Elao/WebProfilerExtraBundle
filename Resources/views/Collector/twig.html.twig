@@ -25,6 +25,10 @@
                 </span>
             </div>
             <div class="sf-toolbar-info-piece">
+                <b>Globals</b>
+                <span>{{ collector.globals|length }}</span>
+            </div>
+            <div class="sf-toolbar-info-piece">
                 <b>Extensions</b>
                 <span>{{ collector.extensions|length }}</span>
             </div>
@@ -100,6 +104,19 @@
         {% endfor %}
     </table>
     <br />
+    <h2>Twig Globals</h2>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Value</th>
+        </tr>
+        {% for global in collector.globals %}
+            <tr>
+                <th>{{ global.name }}</th>
+                <td><code>{{ global.value }}</code></td>
+            </tr>
+        {% endfor %}
+    </table>
     <h2>Twig Extensions</h2>
     <table>
         <tr>
