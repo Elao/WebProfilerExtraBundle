@@ -45,10 +45,10 @@ class WebProfilerExtraExtension extends Extension
         foreach ($config as $resource => $item) {
             if ($item['enabled']) {
                 $loader->load($this->resources[$resource]);
-                $container->setParameter('web_profiler_extra.data_collector.'.$resource.'.display_in_wdt', $item['display_in_wdt']);
+                $container->setParameter('elao_web_profiler_extra.data_collector.'.$resource.'.display_in_wdt', $item['display_in_wdt']);
             }
         }
 
-        $container->setParameter('web_profiler_extra.data_collector.twig.enabled', $config['twig']['enabled']);
+        $container->setParameter('elao_web_profiler_extra.data_collector.twig.enabled', $config['twig']['enabled']);
     }
 }
