@@ -11,8 +11,8 @@ class TwigEngineCompilerPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container)
     {
-        if (!$container->hasParameter('web_profiler_extra.data_collector.twig.enabled')
-            || !$container->getParameter('web_profiler_extra.data_collector.twig.enabled')
+        if (!$container->hasParameter('elao_web_profiler_extra.data_collector.twig.enabled')
+            || !$container->getParameter('elao_web_profiler_extra.data_collector.twig.enabled')
         ) {
             return;
         }
@@ -25,11 +25,11 @@ class TwigEngineCompilerPass implements CompilerPassInterface
         $container->setDefinition(
             'templating.engine.twig',
             new Definition(
-                '%web_profiler_extra.templating.engine.twig.class%',
+                '%elao_web_profiler_extra.templating.engine.twig.class%',
                 array(
                     new Reference('twig'),
                     new Reference('templating.engine.twig.decorated'),
-                    new Reference('web_profiler_extra.data_collector.twig'),
+                    new Reference('elao_web_profiler_extra.data_collector.twig'),
                 )
             )
         );

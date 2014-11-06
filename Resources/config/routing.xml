@@ -5,13 +5,13 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="web_profiler_extra.data_collector.routing.class">Elao\WebProfilerExtraBundle\DataCollector\RoutingDataCollector</parameter>
+        <parameter key="elao_web_profiler_extra.data_collector.routing.class">Elao\WebProfilerExtraBundle\DataCollector\RoutingDataCollector</parameter>
     </parameters>
 
     <services>
-        <service id="web_profiler_extra.data_collector.routing" class="%web_profiler_extra.data_collector.routing.class%" public="false">
+        <service id="elao_web_profiler_extra.data_collector.routing" class="%elao_web_profiler_extra.data_collector.routing.class%" public="false">
             <argument type="service" id="router" />
-            <argument>%web_profiler_extra.data_collector.routing.display_in_wdt%</argument>
+            <argument>%elao_web_profiler_extra.data_collector.routing.display_in_wdt%</argument>
             <tag name="data_collector" template="WebProfilerExtraBundle:Collector:routing" id="routing" />
         </service>
     </services>
