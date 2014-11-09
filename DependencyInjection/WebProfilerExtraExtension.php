@@ -31,6 +31,7 @@ class WebProfilerExtraExtension extends Extension
         'container' => 'container.xml',
         'assetic'   => 'assetic.xml',
         'twig'      => 'twig.xml',
+        'composer'  => 'composer.xml',
     );
 
     /**
