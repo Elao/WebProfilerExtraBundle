@@ -135,7 +135,7 @@ class ContainerDataCollector extends DataCollector
      */
     public function getName()
     {
-        return 'container';
+        return 'elao_container';
     }
 
     /**

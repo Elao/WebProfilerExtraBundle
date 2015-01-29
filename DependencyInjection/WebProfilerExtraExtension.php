@@ -16,10 +16,10 @@ use Symfony\Component\Config\FileLocator;
 
 /**
  * ExtraProfilerExtension is an extension to add debug information to the web profiler:
- * assetic:		Information about assetics assets
- * routing:		Information about loaded routes
- * container:	Information about the container configuration & sevices
- * twig:		Information about Twig
+ * assetic:     Information about assetics assets
+ * routing:     Information about loaded routes
+ * container:   Information about the container configuration & sevices
+ * twig:        Information about Twig
  *
  * @author Vincent Bouzeran <vincent.bouzeran@elao.com>
  * @author Grégoire Pineau <lyrixx@lyrixx.info>

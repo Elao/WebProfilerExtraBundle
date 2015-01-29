@@ -58,7 +58,7 @@ class TwigDataCollector extends DataCollector
             foreach ($extension->getFilters() as $filterName => $filter) {
                 if ($filter instanceof \Twig_FilterInterface) {
                     $call = $filter->compile();
-                    if(is_array($call) && is_callable($call)) {
+                    if (is_array($call) && is_callable($call)) {
                         $call = 'Method '.$call[1].' of an object '.get_class($call[0]);
                     }
                 } else {
@@ -100,14 +100,15 @@ class TwigDataCollector extends DataCollector
                 );
             }
         }
-	  
-	  $globals = array();
-	  foreach($this->getTwig()->getGlobals() as $globalName => $global) {
-	     $globals[] = array(
-		   'name' => $globalName,
-		   'value' => $this->getVarDump($global),
-	     );
-	  }
+
+        $globals = array();
+
+        foreach ($this->getTwig()->getGlobals() as $globalName => $global) {
+            $globals[] = array(
+                'name' => $globalName,
+                'value' => $this->getVarDump($global),
+            );
+        }
 
         $this->data['globals'] = $globals;
         $this->data['extensions'] = $extensions;
@@ -270,12 +271,12 @@ class TwigDataCollector extends DataCollector
      */
     public function getName()
     {
-        return 'twig';
+        return 'elao_twig';
     }
-    
+
     /**
      * Returns var_dump like of a variable but avoiding flood dumping
-     * 
+     *
      * @return string Formated var_dump
      */
     protected function getVarDump($var)
@@ -287,21 +288,19 @@ class TwigDataCollector extends DataCollector
             case 'double':
             case 'NULL':
             case 'ressource':
-		   return print_r($var, 1);
-		   break;
+                return print_r($var, 1);
             case 'string':
-		   return (250 < strlen($var)) ? substr($var, 0, 250).'...' : $var;
-		   break;
+                return (250 < strlen($var)) ? substr($var, 0, 250).'...' : $var;
             case 'object':
-               return 'Object instance of ' . get_class($var);
-               break;
+                return 'Object instance of ' . get_class($var);
             case 'array':
-               $formated_array = array();
-               foreach ($var as $key => $value) {
-                   $formated_array[$key] = $this->getVarDump($value);
-               }
-               return print_r($formated_array, 1);
-               break;
-	  }
+                $formated_array = array();
+
+                foreach ($var as $key => $value) {
+                    $formated_array[$key] = $this->getVarDump($value);
+                }
+
+                return print_r($formated_array, 1);
+        }
     }
 }

@@ -109,6 +109,6 @@ class AsseticDataCollector extends DataCollector
      */
     public function getName()
     {
-        return 'assetic';
+        return 'elao_assetic';
     }
 }

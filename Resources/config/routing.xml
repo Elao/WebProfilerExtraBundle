@@ -12,7 +12,7 @@
         <service id="web_profiler_extra.data_collector.routing" class="%web_profiler_extra.data_collector.routing.class%" public="false">
             <argument type="service" id="router" />
             <argument>%web_profiler_extra.data_collector.routing.display_in_wdt%</argument>
-            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:routing" id="routing" />
+            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:routing" id="elao_routing" />
         </service>
     </services>
 </container>

@@ -12,7 +12,7 @@
         <service id="web_profiler_extra.data_collector.container" class="%web_profiler_extra.data_collector.container.class%" public="false">
             <argument type="service" id="kernel" />
             <argument>%web_profiler_extra.data_collector.container.display_in_wdt%</argument>
-            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:container" id="container" />
+            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:container" id="elao_container" />
         </service>
     </services>
 </container>
