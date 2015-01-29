@@ -27,7 +27,8 @@ class TwigProfilerEngine extends TwigEngine
         $templatePath = null;
 
         $loader = $this->environment->getLoader();
-        if ($loader instanceof \Twig_Loader_Filesystem) {
+
+        if ($loader instanceof \Twig_LoaderInterface) {
             $templatePath = $loader->getCacheKey($name);
         }
         $this->collector->collectTemplateData($name, $parameters, $templatePath);
