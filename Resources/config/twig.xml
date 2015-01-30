@@ -13,7 +13,7 @@
         <service id="web_profiler_extra.data_collector.twig" class="%web_profiler_extra.data_collector.twig.class%" public="false">
             <argument type="service" id="service_container" />
             <argument>%web_profiler_extra.data_collector.twig.display_in_wdt%</argument>
-            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:twig" id="twig" />
+            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:twig" id="elao_twig" />
         </service>
     </services>
 </container>

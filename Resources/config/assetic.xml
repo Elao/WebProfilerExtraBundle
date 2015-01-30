@@ -12,7 +12,7 @@
         <service id="web_profiler_extra.data_collector.assetic" class="%web_profiler_extra.data_collector.assetic.class%" public="false">
             <argument type="service" id="service_container" />
             <argument>%web_profiler_extra.data_collector.assetic.display_in_wdt%</argument>
-            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:assetic" id="assetic" />
+            <tag name="data_collector" template="WebProfilerExtraBundle:Collector:assetic" id="elao_assetic" />
         </service>
     </services>
 </container>

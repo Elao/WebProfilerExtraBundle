@@ -150,6 +150,6 @@ class RoutingDataCollector extends DataCollector
      */
     public function getName()
     {
-        return 'routing';
+        return 'elao_routing';
     }
 }
