@@ -67,7 +67,7 @@ class RoutingDataCollector extends DataCollector
             $controller = isset($defaults['_controller']) ? $defaults['_controller'] : 'unknown';
             $routes[$routeName] = array(
                 'name' => $routeName,
-                'pattern' => $route->getPattern(),
+                'pattern' => $route->getPath(),
                 'controller' => $controller,
                 'method' => isset($requirements['_method']) ? $requirements['_method'] : 'ANY',
             );
