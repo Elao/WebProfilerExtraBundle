@@ -35,7 +35,7 @@ class ContainerDataCollector extends DataCollector
      * @var ContainerBuilder
      */
     protected $containerBuilder;
-    
+
     /**
      * Constructor for the Container Datacollector
      *
@@ -71,7 +71,7 @@ class ContainerDataCollector extends DataCollector
         $services = array();
 
         $this->loadContainerBuilder();
-        
+
         if ($this->containerBuilder !== false) {
             foreach ($this->containerBuilder->getParameterBag()->all() as $key => $value) {
                 $service = substr($key, 0, strpos($key, '.'));
