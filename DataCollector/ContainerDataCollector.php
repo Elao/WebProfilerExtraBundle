@@ -26,8 +26,14 @@ use Symfony\Component\Config\FileLocator;
  */
 class ContainerDataCollector extends DataCollector
 {
+    /**
+     * @var Kernel
+     */
     protected $kernel;
-    protected $container;
+
+    /**
+     * @var ContainerBuilder
+     */
     protected $containerBuilder;
 
     /**
@@ -39,8 +45,6 @@ class ContainerDataCollector extends DataCollector
     public function __construct(Kernel $kernel, $displayInWdt)
     {
         $this->kernel = $kernel;
-        $this->container = $kernel->getContainer();
-        $this->containerBuilder = $this->getContainerBuilder();
         $this->data['display_in_wdt'] = $displayInWdt;
     }
 
@@ -65,6 +69,8 @@ class ContainerDataCollector extends DataCollector
     {
         $parameters = array();
         $services = array();
+
+        $this->loadContainerBuilder();
 
         if ($this->containerBuilder !== false) {
             foreach ($this->containerBuilder->getParameterBag()->all() as $key => $value) {
@@ -143,23 +149,27 @@ class ContainerDataCollector extends DataCollector
      *
      * @author Ryan Weaver <ryan@thatsquality.com>
      *
-     * @return ContainerBuilder
      */
-    private function getContainerBuilder()
+    private function loadContainerBuilder()
     {
+        if ($this->containerBuilder !== null) {
+            return;
+        }
+        $container = $this->kernel->getContainer();
         if (!$this->getKernel()->isDebug()
-            || !$this->container->hasParameter('debug.container.dump')
-            || !file_exists($cachedFile = $this->container->getParameter('debug.container.dump'))
+            || !$container->hasParameter('debug.container.dump')
+            || !file_exists($cachedFile = $container->getParameter('debug.container.dump'))
         ) {
-            return false;
+            $this->containerBuilder = false;
+            return;
         }
 
-        $container = new ContainerBuilder();
+        $containerBuilder = new ContainerBuilder();
 
-        $loader = new XmlFileLoader($container, new FileLocator());
+        $loader = new XmlFileLoader($containerBuilder, new FileLocator());
         $loader->load($cachedFile);
 
-        return $container;
+        $this->containerBuilder = $containerBuilder;
     }
 
     /**
