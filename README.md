@@ -59,6 +59,12 @@ Most of the time, we need this bundle to be only activated in the `dev` environm
             enabled:        true
             display_in_wdt: true
 
+If you don't use assetic then you need to disable the assetic collector
+
+    web_profiler_extra:
+        assetic:
+            enabled:        false
+            display_in_wdt: false
 
 ## Install assets
 
