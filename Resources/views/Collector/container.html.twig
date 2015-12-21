@@ -61,19 +61,11 @@
         <table>
             <tr>
                 <th>Name</th>
-                <th>Scope</th>
                 <th>Class Name</th>
             </tr>
             {% for service_id, service in collector.services %}
                 <tr class="{{ loop.index is odd ? 'odd' : 'even' }}">
                     <th><code>{{ service_id }}</code></th>
-                    <td>
-                        {% if service.scope is defined %}
-                            {{ service.scope }}
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
                     <td>
                         {% if service.class is defined %}
                             {{ service.class }}
