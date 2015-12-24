@@ -62,120 +62,178 @@
 {% endblock %}
 
 {% block panel %}
-    <h2>Twig Templates</h2>
-    <table>
-        <tr>
-            <th>Template</th>
-            <th>Parameters</th>
-        </tr>
-        {% for template in collector.templates %}
-        <tr>
-            <th>
-                {% if template.path %}
-                    <a href="{{ template.path|file_link(1) }}">
-                        {{ template.name }}
-                    </a>
-                {% else %}
-                    {{ template.name }}
-                {% endif %}
-            </th>
-            <td>
-                {% for parameter, metadata in template.parameters %}
-                    {% if metadata.type == 'boolean' %}
-                        {% set value = metadata.value ? 'true' : 'false' %}
-                    {% elseif metadata.type == 'string' %}
-                        {% set maxStrLength = 40 %}
-                        {% set value = metadata.value %}
-                        {% if value|length > maxStrLength %}
-                            {% set value = value|slice(0, maxStrLength) ~ '…' %}
-                        {% endif %}
-                        {% set value = '"' ~ value ~ '"' %}
+
+    <h2>Twig metrics</h2>
+    <div class="metrics">
+        <div class="metric">
+            <span class="value">{{ collector.globals|length }}</span>
+            <span class="label">Globals</span>
+        </div>
+        <div class="metric">
+            <span class="value">{{ collector.extensions|length }}</span>
+            <span class="label">Extensions</span>
+        </div>
+        <div class="metric">
+            <span class="value">{{ collector.tests|length }}</span>
+            <span class="label">Tests</span>
+        </div>
+        <div class="metric">
+            <span class="value">{{ collector.filters|length }}</span>
+            <span class="label">Filters</span>
+        </div>
+        <div class="metric">
+            <span class="value">{{ collector.functions|length }}</span>
+            <span class="label">Functions</span>
+        </div>
+    </div>
+
+    {% if collector.templates|length %}
+        <h2>Twig Templates</h2>
+        <table>
+            <tr>
+                <th>Template</th>
+                <th>Parameters</th>
+            </tr>
+            {% for template in collector.templates %}
+            <tr>
+                <th>
+                    {% if template.path %}
+                        <a href="{{ template.path|file_link(1) }}">
+                            {{ template.name }}
+                        </a>
                     {% else %}
-                        {% set value = metadata.value %}
+                        {{ template.name }}
                     {% endif %}
-                    <code>
-                        {{ parameter }}: <em style="color: #aaa">{{ metadata.type }}</em>
-                        <span style="color: #009E00">{{ value }}</span>
-                    </code>
-                    {% if not loop.last %}<br />{% endif %}
+                </th>
+                <td>
+                    {% for parameter, metadata in template.parameters %}
+                        {% if metadata.type == 'boolean' %}
+                            {% set value = metadata.value ? 'true' : 'false' %}
+                        {% elseif metadata.type == 'string' %}
+                            {% set maxStrLength = 40 %}
+                            {% set value = metadata.value %}
+                            {% if value|length > maxStrLength %}
+                                {% set value = value|slice(0, maxStrLength) ~ '…' %}
+                            {% endif %}
+                            {% set value = '"' ~ value ~ '"' %}
+                        {% else %}
+                            {% set value = metadata.value %}
+                        {% endif %}
+                        <code>
+                            {{ parameter }}: <em style="color: #aaa">{{ metadata.type }}</em>
+                            <span style="color: #009E00">{{ value }}</span>
+                        </code>
+                        {% if not loop.last %}<br />{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    {% if collector.globals|length %}
+        <h2>Twig Globals</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for global in collector.globals %}
+                    <tr>
+                        <th>{{ global.name }}</th>
+                        <td>{{ global.value }}</td>
+                    </tr>
                 {% endfor %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br />
-    <h2>Twig Globals</h2>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Value</th>
-        </tr>
-        {% for global in collector.globals %}
-            <tr>
-                <th>{{ global.name }}</th>
-                <td><code>{{ global.value }}</code></td>
-            </tr>
-        {% endfor %}
-    </table>
-    <h2>Twig Extensions</h2>
-    <table>
-        <tr>
-            <th>Extension</th>
-            <th>Class</th>
-        </tr>
-        {% for extension in collector.extensions %}
-            <tr>
-                <th>{{ extension.name }}</th>
-                <td><code>{{ extension.class }}</code></td>
-            </tr>
-        {% endfor %}
-    </table>
+            </tbody>
+        </table>
+    {% endif %}
 
-    <h2>Twig Tests available</h2>
-    <table>
-        <tr>
-            <th>Test</th>
-            <th>Call</th>
-            <th>Extension</th>
-        </tr>
-        {% for test in collector.tests %}
-            <tr>
-                <th>{{ test.name }}</th>
-                <td><code>{{ test.call }}</code></td>
-                <td>{{ test.extension }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% if collector.extensions|length %}
+        <h2>Twig Extensions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Extension</th>
+                    <th>Class</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for extension in collector.extensions %}
+                    <tr>
+                        <th>{{ extension.name }}</th>
+                        <td>{{ extension.class }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 
-    <h2>Twig Filters available</h2>
-    <table>
-        <tr>
-            <th>Filter</th>
-            <th>Call</th>
-            <th>Extension</th>
-        </tr>
-        {% for filter in collector.filters %}
-            <tr>
-                <th>{{ filter.name }}</th>
-                <td><code>{{ filter.call }}</code></td>
-                <td>{{ filter.extension }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% if collector.tests|length %}
+        <h2>Twig Tests available</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Test</th>
+                    <th>Call</th>
+                    <th>Extension</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for test in collector.tests %}
+                    <tr>
+                        <th>{{ test.name }}</th>
+                        <td>{{ test.call }}</td>
+                        <td>{{ test.extension }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 
-    <h2>Twig Functions available</h2>
-    <table>
-        <tr>
-            <th>Function</th>
-            <th>Call</th>
-            <th>Extension</th>
-        </tr>
-        {% for function in collector.functions %}
-            <tr>
-                <th>{{ function.name }}</th>
-                <td><code>{{ function.call }}</code></td>
-                <td>{{ function.extension }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    {% if collector.filters|length %}
+        <h2>Twig Filters available</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Filter</th>
+                    <th>Call</th>
+                    <th>Extension</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for filter in collector.filters %}
+                    <tr>
+                        <th>{{ filter.name }}</th>
+                        <td>{{ filter.call }}</td>
+                        <td>{{ filter.extension }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% if collector.functions|length %}
+        <h2>Twig Functions available</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Function</th>
+                    <th>Call</th>
+                    <th>Extension</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for function in collector.functions %}
+                    <tr>
+                        <th>{{ function.name }}</th>
+                        <td>{{ function.call }}</td>
+                        <td>{{ function.extension }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}
