@@ -62,30 +62,33 @@
 {% endblock %}
 
 {% block panel %}
+    {% set profiler_markup_version = profiler_markup_version|default(1) %}
 
-    <h2>Twig metrics</h2>
-    <div class="metrics">
-        <div class="metric">
-            <span class="value">{{ collector.globals|length }}</span>
-            <span class="label">Globals</span>
+    {% if profiler_markup_version == 2 %}
+        <h2>Twig metrics</h2>
+        <div class="metrics">
+            <div class="metric">
+                <span class="value">{{ collector.globals|length }}</span>
+                <span class="label">Globals</span>
+            </div>
+            <div class="metric">
+                <span class="value">{{ collector.extensions|length }}</span>
+                <span class="label">Extensions</span>
+            </div>
+            <div class="metric">
+                <span class="value">{{ collector.tests|length }}</span>
+                <span class="label">Tests</span>
+            </div>
+            <div class="metric">
+                <span class="value">{{ collector.filters|length }}</span>
+                <span class="label">Filters</span>
+            </div>
+            <div class="metric">
+                <span class="value">{{ collector.functions|length }}</span>
+                <span class="label">Functions</span>
+            </div>
         </div>
-        <div class="metric">
-            <span class="value">{{ collector.extensions|length }}</span>
-            <span class="label">Extensions</span>
-        </div>
-        <div class="metric">
-            <span class="value">{{ collector.tests|length }}</span>
-            <span class="label">Tests</span>
-        </div>
-        <div class="metric">
-            <span class="value">{{ collector.filters|length }}</span>
-            <span class="label">Filters</span>
-        </div>
-        <div class="metric">
-            <span class="value">{{ collector.functions|length }}</span>
-            <span class="label">Functions</span>
-        </div>
-    </div>
+    {% endif %}
 
     {% if collector.templates|length %}
         <h2>Twig Templates</h2>

@@ -41,18 +41,22 @@
             <em>No debug container information</em>
         </div>
     {% else %}
-        <h2>Container metrics</h2>
-        <div class="metrics">
-            <div class="metric">
-                <span class="value">{{ collector.serviceCount }}</span>
-                <span class="label">Services</span>
-            </div>
+        {% set profiler_markup_version = profiler_markup_version|default(1) %}
 
-            <div class="metric">
-                <span class="value">{{ collector.parameters|length }}</span>
-                <span class="label">Parameters namespaces</span>
+        {% if profiler_markup_version == 2 %}
+            <h2>Container metrics</h2>
+            <div class="metrics">
+                <div class="metric">
+                    <span class="value">{{ collector.serviceCount }}</span>
+                    <span class="label">Services</span>
+                </div>
+
+                <div class="metric">
+                    <span class="value">{{ collector.parameters|length }}</span>
+                    <span class="label">Parameters namespaces</span>
+                </div>
             </div>
-        </div>
+        {% endif %}
 
         <h2>Container Parameters</h2>
         <table>
