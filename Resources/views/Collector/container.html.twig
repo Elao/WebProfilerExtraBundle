@@ -1,19 +1,22 @@
 {% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
 
+
 {% block toolbar %}
     {% if collector.displayInWdt %}
+        {% set serviceCount = collector.serviceCount %}
         {% set icon %}
             <img height="28" alt="Container" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAMAAABWBG9SAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIE1hY2ludG9zaCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDoyMjY5ODc3MjRFRDIxMUUyOUQzNUI2QTkwQjU4RkU2QiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDoyMjY5ODc3MzRFRDIxMUUyOUQzNUI2QTkwQjU4RkU2QiI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjIyNjk4NzcwNEVEMjExRTI5RDM1QjZBOTBCNThGRTZCIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjIyNjk4NzcxNEVEMjExRTI5RDM1QjZBOTBCNThGRTZCIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+aeuERwAAASBQTFRFQD8/RUVFubi49/f3e3p6rKurmJeXsbGxr6+v7u7uU1NT19bWyMjI5+fnY2JiQUFBxMTE2dnZt7e3YWBg39/faGdnS0tLUE9PgYCAgIB/5+bmUVFRTk5OYmJhvb299/b2ycnJr66tUlJSpqWkurm5kZGQsbCw0dDQd3d2kI+PcnBwxsXFvLu7oaCgWVlYy8vKTU1MW1patLOzy8vLenp6oqGglZWVRkZGp6eml5aWaWlpcXFxRkVFvby8gYB/aWlo/Pz8Y2NjQD9ApaWkP0BAf39/lJOTeHd3p6amr66uw8PDlZWU+/v73d3deXh4RUVG7e3tcXBwcnFwjYyM6+vrxsbGxsbFl5eX2travb2829vbs7OzT09PPz8/QEBA////blEBcwAAAGB0Uk5T//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8Ac23kQwAAANRJREFUeNpiiMcCGKgkKG8byYwm6OOrphVkJOKAEAzR9hZlZIiNjTW3Cg8NAAmK6AYaxMXGxoFBbKyLjLWpFIOCsqseA0IwzlDSQ53BUUJRwMvZLwYkIW1iESbgaSfLIBYby2hvqWKsE6wpp89kJmoTGyvGEAPRpeQeEaUhDjE8BiwINo6DA2owkmBcdHQc/QX9ndAFYxkZVIX5IT6HCMbG8gu7McQzC7KycMXFMrCzM8TGcbGwCjJDA5mTh41PSIiPjYcTJTp4mbi5mXipHMXIACDAAPMEsv90Bi2uAAAAAElFTkSuQmCC"/>
-            <span class="sf-toolbar-info-piece-additional-detail">Container</span>
+            <span class="sf-toolbar-value">{{ serviceCount }}</span>
+            <span class="sf-toolbar-label">Services</span>
         {% endset %}
         {% set text %}
             <div class="sf-toolbar-info-piece">
                 <b>Services</b>
-                <span>{{ collector.servicecount }}</span>
+                <span class="sf-toolbar-status">{{ serviceCount }}</span>
             </div>
             <div class="sf-toolbar-info-piece">
                 <b>Parameter<br />namespaces</b>
-                <span>{{ collector.parameters|length }}</span>
+                <span class="sf-toolbar-status">{{ collector.parameters|length }}</span>
             </div>
         {% endset %}
         {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url } %}
@@ -27,45 +30,66 @@
         </span>
         <strong>Container</strong>
         <span class="count">
-            <span>{{ collector.servicecount }}</span>
+            <span>{{ collector.serviceCount }}</span>
         </span>
     </span>
 {% endblock %}
 
 {% block panel %}
     {% if collector.services is empty %}
-        <em>No debug container information</em>
+        <div class="empty">
+            <em>No debug container information</em>
+        </div>
     {% else %}
+        {% set profiler_markup_version = profiler_markup_version|default(1) %}
+
+        {% if profiler_markup_version == 2 %}
+            <h2>Container metrics</h2>
+            <div class="metrics">
+                <div class="metric">
+                    <span class="value">{{ collector.serviceCount }}</span>
+                    <span class="label">Services</span>
+                </div>
+
+                <div class="metric">
+                    <span class="value">{{ collector.parameters|length }}</span>
+                    <span class="label">Parameters namespaces</span>
+                </div>
+            </div>
+        {% endif %}
+
         <h2>Container Parameters</h2>
         <table>
             {% for service, parameters in collector.parameters %}
-                <tr>
-                    <th>{{ service }}</th>
-                    <td>
-                        <table>
-                            {% for key, value in parameters %}
-                                <tr>
-                                    <th width="420"><code>{{ key }}</code></th>
-                                    <td>
-                                        {{ value | yaml_dump }}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    </td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th colspan="3" class="colored font-normal">{{ service|default('#') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in parameters %}
+                        <tr>
+                            <th width="420">{{ key }}</th>
+                            <td>
+                                {{ value | yaml_dump }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             {% endfor %}
         </table>
 
         <h2>Container Services:</h2>
         <table>
-            <tr>
-                <th>Name</th>
-                <th>Class Name</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Class Name</th>
+                </tr>
+            </thead>
             {% for service_id, service in collector.services %}
                 <tr class="{{ loop.index is odd ? 'odd' : 'even' }}">
-                    <th><code>{{ service_id }}</code></th>
+                    <th>{{ service_id }}</th>
                     <td>
                         {% if service.class is defined %}
                             {{ service.class }}
