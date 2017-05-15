@@ -58,6 +58,9 @@ Most of the time, we need this bundle to be only activated in the `dev` environm
         twig:
             enabled:        true
             display_in_wdt: true
+        composer:
+            enabled:        true
+            display_in_wdt: true
 
 If you don't use assetic then you need to disable the assetic collector
 

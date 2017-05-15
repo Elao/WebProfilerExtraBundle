@@ -55,6 +55,13 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('display_in_wdt')->defaultTrue()->end()
                     ->end()
                 ->end()
+                ->arrayNode('composer')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enabled')->defaultTrue()->end()
+                        ->booleanNode('display_in_wdt')->defaultTrue()->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

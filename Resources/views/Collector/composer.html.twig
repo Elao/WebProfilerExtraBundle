@@ -1,0 +1,90 @@
+{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+
+{% block toolbar %}
+    {% if collector.displayInWdt %}
+        {% set icon %}
+        <img height="28" alt="Composer Packages" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsSAAALEgHS3X78AAAAB3RJTUUH3gsJEQ4GhDzomAAABOdJREFUSMftVmtsU2UYfk670+709LJL1461625lW8s2bnMS2MAgZihOgaBl6A/GuCwIkYsaFDTByDUwMUoQUMiikUVEGkgMJCAQnfMCDAJymysb7da169bLutPLuflDSDQyWY3GxPD8+pLvyfvkfd/nfb8PeIj/CEm/O0v/VaUsVZJyZd28QwDw1pr6d2ufmf4hANnfjSd5EGHZ8vr54XBYsb9xQ/vY0uJVNE3nApDmpFGjjKnJRKoM9IZVC8sBkP+EIFk+tuSN2vmza0pKis1fn/2uJy/HkFtdOVEPgJJKJDZ/HGKfzz+t6f2NV9cssV0BkF9Vbm0oztaaH9SbP2FudaWloMCUl2MywOG4A6tlNP3Suu2PAnDdpTBLamddvXjx8o7yCWWFLyyYg/KJZWc6bndJ7fYzHwG+xDIcV2Yxy0gS8TgLtVqF6hnTyEP7tpyqmmAx3KX0avX6pk8Pvrc7GAqBYaKYMb3SpMvQXr9ws51LOMNbHZ0ynucRHmLg9nj7Nm/9YI/9VOvbAPh7nC27DjROrihbtHZNg+nAx5/hl47bcDq7jyfkpDH5xmoAtr3bX/tBCF0TX22obZpTXaUfjj++MLvm0N5NItP9k9h6oik81mwYl5BpKiZNzvzi8+ZmRpJe8c6mPaLLE7QfPflN5N59TrpCla9TZqpkv41H2y3n8fNtV5/2B4KCKMLb0dkdG07wvkN86crPXnN25vKZT9WQcxfUEYREajt85MudAORjstRPlBrTj1qzUl/OUCvqOJ5z+BnWYSm0VEll9OO8LEVbVGRZcvrsuU0j7iEF5Le1nqQutHyFVK0R1251vVlpzlhv0qoX9gTCmgx1smQwymKURqGj5eSxKOOY9ew82/5Jk6fA1+dFa8v3HAACgDgiQat1dG52TgF83m6EAp6Q3+eZZsxOf0xNkUmOPh4AARUlhyAIYGKs1JqT+frG9a8cN2VqaiCKIJW6bfcTG7akfX0DkjQFGuRyGXhOlMkF3lCUmSKLsDyiMRZyMgkcL4CUSpChpsCwfO4gE1GmaBRqBa0UOpze3T0e37URm4YDLru9gdMSEBBFMaJTUXGnfwh3XG4UTqxAp8cPPh6Dsz+Etq4+MDEWmuQkgyiI4DgWAsciIdMAgDnXeFsEX9fV1UsKgJyiadiWLcXK5YtApemgyyuAjJTBlKVDNMai3eUFrVRAKpEIPl+g2RsI30hsl5IKN00pIio1jTm1NjTu2QWfL4CDnxyG0aDHEBOFLE2PZWtXw1ZfjxjLQiqRgOc4ghA5cSTv3B/gaL85UFrz5EB4MGhobj4iVlSMx+KFzxEsx+GI/QQWL5oPjuVAEATs9mPIzdZDqZCjx+Pv8PiC5xMuaTjKRcpKrVPTNYriO04X4XI6ialVU9Dj9uLctz8iGo1hVGYGVqxch9hQEDSdjC6X96yrt3+mOxT3JCyYSkItCvwUBUWmkFKk8RyPIksxSkuKkZ9ngiAIaNy1D7HwAEQRcHT2Nl5y+BYMRnnmr9bmsIK6FEozGAzNdrp62SSpdKlam1VdYJ2k3LptB/z+AMJxuWDMKUDH9YuEpz+E7t7+zVpV8osairwejHDh4eISD1rkpjSKBlBiNOUz5iJLntfj7m5taQmvWLW6dPwjFeS852sdqXLihlqlEAVeiDr9kfjDL+D/G78CeLYACF7mKXsAAAAASUVORK5CYII="/>
+        <span class="sf-toolbar-info-piece-additional-detail">Composer packages</span>
+        {% endset %}
+        {% set text %}
+        <div class="sf-toolbar-info-piece">
+            <b>Composer packages</b>
+            <span>{{ collector.packagecount }}</span>
+        </div>
+        {% endset %}
+        {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url } %}
+    {% endif %}
+{% endblock %}
+
+{% block menu %}
+    <span class="label">
+        <span class="icon">
+            <img width=30 src="data:image/png;base64,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" />
+        </span>
+        <strong>Composer</strong>
+        <span class="count">
+            <span>{{ collector.packagecount }}</span>
+        </span>
+    </span>
+{% endblock %}
+
+{% block panel %}
+    {% if collector.packages is empty %}
+        <em>No packages information</em>
+    {% else %}
+        <h2>Composer Packages:</h2>
+        <table>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            {% for package_name, package in collector.packages %}
+                <tr class="{{ loop.index is odd ? 'odd' : 'even' }}">
+                    <th><code>{{ package_name }}</code></th>
+                    <td>
+                        <table>
+                            <tr>
+                                <td width="80px">version</td>
+                                <td>{{ package.version }}</td>
+                            </tr>
+                            <tr>
+                                <td width="80px">source</td>
+                                <td>{{ package.source }}</td>
+                            </tr>
+                            {% if package.authors is defined %}
+                            <tr>
+                                <td width="80px">authors</td>
+                                <td>
+                                    <ul>
+                                        {% for author in package.authors %}
+                                            <li style="padding-bottom: 5px;">{{ author.name }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if package.homepage is defined %}
+                            <tr>
+                                <td width="80px">homepage</td>
+                                <td>{{ package.homepage }}</td>
+                            </tr>
+                            {% endif %}
+                            {% if package.requires|length > 0 %}
+                            <tr>
+                                <td width="80px">requires</td>
+                                <td>
+                                    <ul>
+                                        {% for require_name, require_version in package.requires %}
+                                            <li style="padding-bottom: 5px;">{{ require_name }}: {{ require_version }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </table>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+{% endblock %}
