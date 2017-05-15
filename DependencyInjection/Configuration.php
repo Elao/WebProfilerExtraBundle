@@ -55,6 +55,16 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('display_in_wdt')->defaultTrue()->end()
                     ->end()
                 ->end()
+                ->arrayNode('session')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('enabled')->defaultTrue()->end()
+                        ->booleanNode('display_in_wdt')->defaultTrue()->end()
+                        ->arrayNode('keys_displayed')
+                            ->prototype('variable')->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 
