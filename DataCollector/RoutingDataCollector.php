@@ -79,6 +79,14 @@ class RoutingDataCollector extends DataCollector
     }
 
     /**
+     * Resets this data collector to its initial state.
+     */
+    public function reset()
+    {
+        $this->data = ['display_in_wdt' => $this->data['display_in_wdt']];
+    }
+
+    /**
      * Returns the Amount of Routes
      *
      * @return integer Amount of Routes

@@ -102,6 +102,14 @@ class ContainerDataCollector extends DataCollector
     }
 
     /**
+     * Resets this data collector to its initial state.
+     */
+    public function reset()
+    {
+        $this->data = ['display_in_wdt' => $this->data['display_in_wdt']];
+    }
+
+    /**
      * Returns the Parameters Information
      *
      * @return array Collection of Parameters
