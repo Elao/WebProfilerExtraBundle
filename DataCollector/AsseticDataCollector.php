@@ -70,6 +70,14 @@ class AsseticDataCollector extends DataCollector
     }
 
     /**
+     * Resets this data collector to its initial state.
+     */
+    public function reset()
+    {
+        $this->data = ['display_in_wdt' => $this->data['display_in_wdt']];
+    }
+
+    /**
      * Get the Assetic Assetic manager
      *
      * @return LazyAssetManager
