@@ -1,4 +1,4 @@
-{% extends 'WebProfilerBundle:Profiler:layout.html.twig' %}
+{% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
     {% if collector.displayInWdt %}
@@ -12,7 +12,7 @@
                 <span>{{ collector.collections|length }}</span>
             </div>
         {% endset %}
-        {% include 'WebProfilerBundle:Profiler:toolbar_item.html.twig' with { 'link': profiler_url } %}
+        {% include '@WebProfiler/Profiler/toolbar_item.html.twig' with { 'link': profiler_url } %}
     {% endif %}
 {% endblock %}
 
